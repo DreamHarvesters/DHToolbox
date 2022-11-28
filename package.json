@@ -1,0 +1,37 @@
+{
+  "name": "com.dh.dhtoolbox",
+  "displayName": "DHToolbox",
+  "version": "1.0.0",
+  "unity": "2021.3",
+  "description": "Various tools that we're using in our games",
+  "keywords": [
+    "Framework",
+    "Library",
+    "Toolbox"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "com.cysharp.unitask": "2.3.3",
+    "com.neuecc.unirx": "7.1.0",
+    "com.mackysoft.serializereference-extensions": "1.1.7"
+  },
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.cysharp.unitask",
+        "com.mackysoft.serializereference-extensions",
+        "com.neuecc.unirx",
+        "com.openupm"
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "displayName": "Get Started",
+      "description": "",
+      "path": "Samples~/GetStarted"
+    }
+  ]
+}
