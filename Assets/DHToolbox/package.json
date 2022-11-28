@@ -12,6 +12,7 @@
   "license": "MIT",
   "dependencies": {
     "com.cysharp.unitask": "2.3.3",
+    "com.neuecc.unirx": "7.1.0",
     "com.mackysoft.serializereference-extensions": "1.1.7"
   }
 }
