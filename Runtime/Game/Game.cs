@@ -1,18 +1,19 @@
-using System;
-using GameFoundations.Runtime.Singleton;
-using UniRx;
+using DHToolbox.Runtime.Game.Events;
+using GameFoundations.Runtime.ServiceLocator;
 
-namespace GameFoundations.Runtime.Game
+namespace DHToolbox.Runtime.Game
 {
-    public class Game : Singleton<Game>, IStateOwner<GameState>
+    public class Game
     {
-        private ReactiveProperty<GameState> gameState = new(GameState.Init);
+        public GameState CurrentState { get; private set; }
 
-        public IDisposable Subscribe(IObserver<GameState> observer)
-            => gameState.Subscribe(observer);
-
-        public GameState CurrentState => gameState.Value;
-
-        public virtual void SetState(GameState stateType) => gameState.Value = stateType;
+        public virtual void SetState(GameState stateType)
+        {
+            var oldState = CurrentState;
+            ServiceLocator.EventBus.Raise(new BeforeGameStateChanged());
+            CurrentState = stateType;
+            ServiceLocator.EventBus.Raise(new AfterGameStateChanged()
+                { OldState = oldState, NewState = CurrentState });
+        }
     }
 }

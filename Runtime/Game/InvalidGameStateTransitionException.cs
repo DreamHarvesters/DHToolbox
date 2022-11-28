@@ -1,6 +1,6 @@
 using System;
 
-namespace GameFoundations.Runtime.Game
+namespace DHToolbox.Runtime.Game
 {
     public class InvalidGameStateTransitionException : Exception
     {
