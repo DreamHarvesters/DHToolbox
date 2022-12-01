@@ -1,4 +1,4 @@
-using GameFoundations.Runtime.EventBus;
+using DHToolbox.Runtime.EventBus;
 
 namespace DHToolbox.Runtime.Game.Events
 {

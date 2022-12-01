@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GameFoundations.Runtime.CurveBasedVariable
+namespace DHToolbox.Runtime.CurveBasedVariable
 {
     [Serializable]
     public abstract class CurvedVariable

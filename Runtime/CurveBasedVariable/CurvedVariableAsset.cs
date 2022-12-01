@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameFoundations.Runtime.CurveBasedVariable
+namespace DHToolbox.Runtime.CurveBasedVariable
 {
     [CreateAssetMenu(fileName = nameof(CurvedVariableAsset),
         menuName = Constants.CreateMenuCategory + "/" + nameof(CurvedVariableAsset),

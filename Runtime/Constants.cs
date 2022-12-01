@@ -1,6 +1,4 @@
-using System;
-
-namespace GameFoundations.Runtime
+namespace DHToolbox.Runtime
 {
     public class Constants
     {

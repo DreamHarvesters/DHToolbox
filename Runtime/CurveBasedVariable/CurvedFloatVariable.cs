@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameFoundations.Runtime.CurveBasedVariable
+namespace DHToolbox.Runtime.CurveBasedVariable
 {
     public class CurvedFloatVariable : CurvedVariable<float>
     {

@@ -1,15 +1,14 @@
-using DHToolbox.Runtime.Game;
-using GameFoundations.Runtime.Persistency;
+using DHToolbox.Runtime.Persistency;
 using UnityEngine;
 
-namespace GameFoundations.Runtime.AppConfig
+namespace DHToolbox.Runtime.AppConfig
 {
     public class AppConfig : ScriptableObject
     {
         public virtual void Configure()
         {
-            ServiceLocator.ServiceLocator.Game = new Game();
-            ServiceLocator.ServiceLocator.Persistency = new PlayerPrefsPersistency();
+            ServiceLocator.ServiceLocator.AddService<Game.Game>(new Game.Game());
+            ServiceLocator.ServiceLocator.AddService<IPersistency>(new PlayerPrefsPersistency());
         }
     }
 }
