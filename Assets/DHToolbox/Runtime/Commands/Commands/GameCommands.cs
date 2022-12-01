@@ -1,3 +1,5 @@
+using System;
+
 namespace DHToolbox.Runtime.Commands.Commands
 {
     public abstract class GameCommand : ICommand
@@ -12,6 +14,7 @@ namespace DHToolbox.Runtime.Commands.Commands
         public abstract void Execute();
     }
 
+    [Serializable]
     public class StartGame : GameCommand
     {
         public override void Execute()
@@ -20,6 +23,7 @@ namespace DHToolbox.Runtime.Commands.Commands
         }
     }
 
+    [Serializable]
     public class WinGame : GameCommand
     {
         public override void Execute()
@@ -28,6 +32,7 @@ namespace DHToolbox.Runtime.Commands.Commands
         }
     }
 
+    [Serializable]
     public class LoseGame : GameCommand
     {
         public override void Execute()
