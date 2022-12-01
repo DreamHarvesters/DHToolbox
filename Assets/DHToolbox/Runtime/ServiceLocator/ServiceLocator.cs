@@ -1,19 +1,30 @@
-using DHToolbox.Runtime.Game;
-using GameFoundations.Runtime.AppConfig;
-using GameFoundations.Runtime.Persistency;
+using System;
+using System.Collections.Generic;
+using DHToolbox.Runtime.Persistency;
 using UnityEngine;
 
-namespace GameFoundations.Runtime.ServiceLocator
+namespace DHToolbox.Runtime.ServiceLocator
 {
     public static class ServiceLocator
     {
-        private static EventBus.EventBus eventBus = new();
+        private static Dictionary<Type, object> services = new Dictionary<Type, object>();
 
-        public static EventBus.EventBus EventBus => eventBus;
+        public static void AddService<T>(object service) where T : class
+        {
+            if (services.ContainsKey(typeof(T)))
+                throw new Exception($"Service already registered: {typeof(T).Name}");
 
-        public static Game Game { get; set; }
+            services.Add(typeof(T), service);
+        }
 
-        public static IPersistency Persistency { get; set; }
+        public static T GetService<T>() where T : class
+        {
+            object instance;
+            if (services.TryGetValue(typeof(T), out instance))
+                return instance as T;
+
+            throw new KeyNotFoundException($"Service type not found: {typeof(T).Name}");
+        }
 
         [RuntimeInitializeOnLoadMethod]
         static void Initialize()

@@ -2,9 +2,9 @@ namespace DHToolbox.Runtime.Game
 {
     public enum GameState
     {
-        Init,
+        Initializing,
         MainMenu,
-        InitGame,
+        LoadingLevel,
         InGame,
         Success,
         Fail

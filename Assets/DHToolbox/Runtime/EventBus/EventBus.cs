@@ -1,7 +1,7 @@
 using System;
 using UniRx;
 
-namespace GameFoundations.Runtime.EventBus
+namespace DHToolbox.Runtime.EventBus
 {
     public class EventBus
     {

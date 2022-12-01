@@ -1,4 +1,4 @@
-namespace GameFoundations.Runtime.EventBus
+namespace DHToolbox.Runtime.EventBus
 {
     public interface IEvent
     {

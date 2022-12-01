@@ -1,4 +1,4 @@
-namespace GameFoundations.Runtime.Singleton
+namespace DHToolbox.Runtime.Singleton
 {
     public class Singleton<T> where T : class, new()
     {

@@ -1,5 +1,4 @@
 using DHToolbox.Runtime.Game.Events;
-using GameFoundations.Runtime.ServiceLocator;
 
 namespace DHToolbox.Runtime.Game
 {
@@ -7,13 +6,26 @@ namespace DHToolbox.Runtime.Game
     {
         public GameState CurrentState { get; private set; }
 
-        public virtual void SetState(GameState stateType)
+        protected virtual void SetState(GameState stateType)
         {
+            var eventBus = ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>();
+
             var oldState = CurrentState;
-            ServiceLocator.EventBus.Raise(new BeforeGameStateChanged());
+            eventBus.Raise(new BeforeGameStateChanged());
             CurrentState = stateType;
-            ServiceLocator.EventBus.Raise(new AfterGameStateChanged()
+            eventBus.Raise(new AfterGameStateChanged()
                 { OldState = oldState, NewState = CurrentState });
         }
+
+        public void Initialize() => SetState(GameState.Initializing);
+
+        public void MainMenu() => SetState(GameState.MainMenu);
+
+        public void LoadLevel() => SetState(GameState.LoadingLevel);
+
+        public void StartGame() => SetState(GameState.InGame);
+
+        public void WinGame() => SetState(GameState.Success);
+        public void LoseGame() => SetState(GameState.Fail);
     }
 }

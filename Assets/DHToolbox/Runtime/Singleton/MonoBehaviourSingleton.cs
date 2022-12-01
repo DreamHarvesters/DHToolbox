@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameFoundations.Runtime.Singleton
+namespace DHToolbox.Runtime.Singleton
 {
     public class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
