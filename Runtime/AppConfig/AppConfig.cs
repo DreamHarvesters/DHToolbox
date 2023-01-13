@@ -9,6 +9,7 @@ namespace DHToolbox.Runtime.AppConfig
         {
             ServiceLocator.ServiceLocator.AddService<Game.Game>(new Game.Game());
             ServiceLocator.ServiceLocator.AddService<IPersistency>(new PlayerPrefsPersistency());
+            ServiceLocator.ServiceLocator.AddService<EventBus.EventBus>(new EventBus.EventBus());
         }
     }
 }
