@@ -6,7 +6,7 @@ namespace DHToolbox.Runtime.Commands.Commands
     {
         protected Game.Game game;
 
-        protected GameCommand()
+        public void Initializa()
         {
             game = ServiceLocator.ServiceLocator.GetService<Game.Game>();
         }
