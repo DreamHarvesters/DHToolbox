@@ -35,7 +35,7 @@ namespace DHToolbox.Runtime.ServiceLocator
             throw new KeyNotFoundException($"Service type not found: {typeof(T).Name}");
         }
 
-        [RuntimeInitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         static void Initialize()
         {
             var config = Resources.Load<AppConfig.AppConfig>(nameof(AppConfig.AppConfig));
