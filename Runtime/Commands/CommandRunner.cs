@@ -7,6 +7,11 @@ namespace DHToolbox.Runtime.Commands
     {
         [SerializeReference, SubclassSelector] private ICommand[] commands;
 
-        public void Run() => Array.ForEach(commands, command => command.Execute());
+        private void ForeachCommand(Action<ICommand> foreachDlg) => Array.ForEach(commands, foreachDlg);
+
+        private void Awake() => ForeachCommand(command => command.Initializa());
+
+
+        public void Run() => ForeachCommand(command => command.Execute());
     }
 }
