@@ -3,7 +3,7 @@ using UniRx;
 
 namespace DHToolbox.Runtime.EventBus
 {
-    public class EventBus
+    public class EventBus : IObservable<IEvent>
     {
         internal EventBus()
         {
@@ -15,5 +15,8 @@ namespace DHToolbox.Runtime.EventBus
             eventRaised.Where(@event => @event.GetType() == typeof(T)).Subscribe(observer);
 
         public void Raise(IEvent @event) => eventRaised.OnNext(@event);
+
+        public IDisposable Subscribe(IObserver<IEvent> observer) =>
+            eventRaised.Subscribe(observer);
     }
 }

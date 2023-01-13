@@ -6,7 +6,7 @@ namespace DHToolbox.Runtime.CurveBasedVariable
     {
         public override float Evaluate(float normalizedRate)
         {
-            return Mathf.Clamp(curve.Evaluate(normalizedRate) * max, min, max);
+            return Mathf.Clamp(curve.Evaluate(normalizedRate) * (max - min) + min, min, max);
         }
     }
 }

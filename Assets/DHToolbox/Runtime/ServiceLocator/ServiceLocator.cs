@@ -17,6 +17,15 @@ namespace DHToolbox.Runtime.ServiceLocator
             services.Add(typeof(T), service);
         }
 
+        public static void AddService(object service)
+        {
+            var serviceType = service.GetType();
+            if (services.ContainsKey(serviceType))
+                throw new Exception($"Service already registered: {serviceType}");
+
+            services.Add(serviceType, service);
+        }
+
         public static T GetService<T>() where T : class
         {
             object instance;
