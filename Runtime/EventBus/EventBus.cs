@@ -14,8 +14,8 @@ namespace DHToolbox.Runtime.EventBus
         public IDisposable Subscribe<T>(IObserver<IEvent> observer) where T : IEvent =>
             eventRaised.Where(@event => @event.GetType() == typeof(T)).Subscribe(observer);
 
-        public IObservable<T> SubscribeTo<T>() where T : class, IEvent =>
-            eventRaised.Where(@event => @event.GetType() == typeof(T)).Select(@event => @event as T);
+        public IObservable<T> AsObservable<T>() where T : IEvent =>
+            eventRaised.Where(@event => @event.GetType() == typeof(T)).Select(@event => (T)@event);
 
         public void Raise(IEvent @event) => eventRaised.OnNext(@event);
 
