@@ -1,8 +1,9 @@
+using DHToolbox.Runtime.EventBus;
 using DHToolbox.Runtime.Game.Events;
 
 namespace DHToolbox.Runtime.Game
 {
-    public class Game
+    public class Game : IEventSender
     {
         public GameState CurrentState { get; private set; }
 
@@ -11,10 +12,10 @@ namespace DHToolbox.Runtime.Game
             var eventBus = ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>();
 
             var oldState = CurrentState;
-            eventBus.Raise(new BeforeGameStateChanged());
+            eventBus.Raise(new BeforeGameStateChanged() { Sender = this });
             CurrentState = stateType;
             eventBus.Raise(new AfterGameStateChanged()
-                { OldState = oldState, NewState = CurrentState });
+                { OldState = oldState, NewState = CurrentState, Sender = this });
         }
 
         public void Initialize() => SetState(GameState.Initializing);
