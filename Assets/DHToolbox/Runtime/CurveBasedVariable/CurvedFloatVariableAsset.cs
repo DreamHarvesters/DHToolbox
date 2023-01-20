@@ -7,5 +7,6 @@ namespace DHToolbox.Runtime.CurveBasedVariable
         order = 0)]
     public class CurvedFloatVariableAsset : ScriptableObject
     {
+        public CurvedFloatVariable Variable;
     }
 }
