@@ -4,12 +4,7 @@ using UnityEngine;
 namespace DHToolbox.Runtime.CurveBasedVariable
 {
     [Serializable]
-    public abstract class CurvedVariable
-    {
-    }
-
-    [Serializable]
-    public abstract class CurvedVariable<T> : CurvedVariable
+    public abstract class CurvedVariable<T>
     {
         [SerializeField] protected T min;
         [SerializeField] protected T max;
@@ -19,6 +14,6 @@ namespace DHToolbox.Runtime.CurveBasedVariable
 
         public T Min => min;
 
-        public abstract float Evaluate(float normalizedRate);
+        public abstract T Evaluate(float normalizedRate);
     }
 }
