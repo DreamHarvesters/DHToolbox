@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 
 namespace DHToolbox.Runtime.CurveBasedVariable
 {
+    [Serializable]
     public class CurvedIntVariable : CurvedVariable<int>
     {
-        public override float Evaluate(float normalizedRate)
+        public override int Evaluate(float normalizedRate)
         {
-            return Mathf.Clamp(curve.Evaluate(normalizedRate) * (max - min) + min, min, max);
+            return (int)Mathf.Clamp(curve.Evaluate(normalizedRate) * (max - min) + min, min, max);
         }
     }
 }

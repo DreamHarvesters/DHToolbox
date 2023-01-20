@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace DHToolbox.Runtime.CurveBasedVariable
 {
+    [Serializable]
     public class CurvedFloatVariable : CurvedVariable<float>
     {
         public override float Evaluate(float normalizedRate) =>
