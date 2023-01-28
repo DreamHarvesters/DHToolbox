@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using DHToolbox.Runtime;
 using Foundations.Scripts.Resource;
 using UnityEngine;
 
 namespace Foundations.Scripts.Identification
 {
-    [CreateAssetMenu(fileName = nameof(Id), menuName = "Toolbox/" + nameof(Id), order = 0)]
+    [CreateAssetMenu(fileName = nameof(Id), menuName = Constants.CreateMenuCategory + "/" + nameof(Id), order = 0)]
     public class Id : ScriptableObject
     {
         public static Id From(string value)

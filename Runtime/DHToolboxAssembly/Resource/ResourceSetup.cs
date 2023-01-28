@@ -1,9 +1,11 @@
+using DHToolbox.Runtime;
 using Foundations.Scripts.Identification;
 using UnityEngine;
 
 namespace Foundations.Scripts.Resource
 {
-    [CreateAssetMenu(fileName = nameof(ResourceSetup), menuName = "Toolbox/" + nameof(ResourceSetup), order = 0)]
+    [CreateAssetMenu(fileName = nameof(ResourceSetup),
+        menuName = Constants.CreateMenuCategory + "/" + nameof(ResourceSetup), order = 0)]
     public class ResourceSetup : ScriptableObject
     {
         [SerializeField] private Id id;
