@@ -1,5 +1,6 @@
 using System;
 using Foundations.Scripts.Resource;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ namespace GameAssets.Scripts.UI.PlayerStorageView
 #if TM_PRO
     using TMPro;
 #endif
+
     public class DynamicPlayerStorageItem : MonoBehaviour
     {
 #if TM_PRO
@@ -19,7 +21,7 @@ namespace GameAssets.Scripts.UI.PlayerStorageView
         public void Setup(ResourceSetup resourceSetup, IObservable<int> reactiveAmount)
         {
 #if TM_PRO
-            productName.text = productName;
+            productName.text = resourceSetup.UIName;
             reactiveAmount
                 .SubscribeWithState(productAmount, (amount, amountText) => amountText.text = amount.ToString())
                 .AddTo(gameObject);
