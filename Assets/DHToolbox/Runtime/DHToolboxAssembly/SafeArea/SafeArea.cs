@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DHToolbox.Runtime.SafeArea
+namespace DHToolbox.Runtime.DHToolboxAssembly.SafeArea
 {
     /// <summary>
     /// Safe area implementation for notched mobile devices. Usage:

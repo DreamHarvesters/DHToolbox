@@ -1,9 +1,8 @@
 using System;
-using DHToolbox.Runtime;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace GameAssets.Scripts.Waves
+namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 {
     [CreateAssetMenu(fileName = nameof(WaveDifficultySetup),
         menuName = Constants.CreateMenuCategory + "/" + nameof(WaveDifficultySetup))]

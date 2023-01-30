@@ -1,4 +1,4 @@
-namespace DHToolbox.Runtime.Commands
+namespace DHToolbox.Runtime.DHToolboxAssembly.Commands
 {
     public interface ICommand
     {

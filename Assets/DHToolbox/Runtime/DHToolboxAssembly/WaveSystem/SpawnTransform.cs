@@ -1,11 +1,8 @@
-﻿using System;
-using System.Linq;
-using Foundations.Scripts.Utils.Extensions;
-using UniRx;
+﻿using DHToolbox.Runtime.DHToolboxAssembly.Utils.Extensions;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace GameAssets.Scripts.Waves
+namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 {
     public class SpawnTransform : MonoBehaviour
     {

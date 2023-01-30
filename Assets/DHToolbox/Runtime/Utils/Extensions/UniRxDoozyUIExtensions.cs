@@ -1,8 +1,4 @@
-using System;
-using UniRx;
-using UnityEngine.Events;
-
-namespace Foundations.Scripts.Utils.Extensions
+namespace DHToolbox.Runtime.Utils.Extensions
 {
 #if DOOZY
     using Doozy.Runtime.Signals;

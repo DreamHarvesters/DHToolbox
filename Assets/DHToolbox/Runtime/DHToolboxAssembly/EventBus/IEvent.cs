@@ -1,4 +1,4 @@
-namespace DHToolbox.Runtime.EventBus
+namespace DHToolbox.Runtime.DHToolboxAssembly.EventBus
 {
     public interface IEvent
     {

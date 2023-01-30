@@ -3,7 +3,7 @@ using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-namespace DHToolbox.Runtime.CharacterControllers
+namespace DHToolbox.Runtime.DHToolboxAssembly.CharacterControllers
 {
     [RequireComponent(typeof(CharacterController))]
     public class CharacterControllerBasedMotor : BaseMotor

@@ -1,8 +1,8 @@
 using System;
-using Foundations.Scripts.Identification;
+using DHToolbox.Runtime.DHToolboxAssembly.Identification;
 using UniRx;
 
-namespace Foundations.Scripts.Resource
+namespace DHToolbox.Runtime.DHToolboxAssembly.Resource
 {
     public class Resource : ICountableResource
     {

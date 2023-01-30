@@ -1,4 +1,4 @@
-namespace DHToolbox.Runtime.Game
+namespace DHToolbox.Runtime.DHToolboxAssembly.Game
 {
     public enum GameState
     {

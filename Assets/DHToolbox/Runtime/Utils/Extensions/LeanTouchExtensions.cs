@@ -1,8 +1,4 @@
-using System;
-using UniRx;
-using UnityEngine;
-
-namespace Foundations.Scripts.Utils.Extensions
+namespace DHToolbox.Runtime.Utils.Extensions
 {
 #if LEAN_TOUCH
     using Lean.Touch;

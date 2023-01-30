@@ -1,6 +1,6 @@
-using DHToolbox.Runtime.EventBus;
+using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
 
-namespace DHToolbox.Runtime.Game.Events
+namespace DHToolbox.Runtime.DHToolboxAssembly.Game.Events
 {
     public struct BeforeGameStateChanged : IEvent
     {

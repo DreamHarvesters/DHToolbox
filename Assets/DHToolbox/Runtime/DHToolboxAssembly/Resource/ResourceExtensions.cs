@@ -1,6 +1,6 @@
-using Foundations.Scripts.AmountOwner;
+using DHToolbox.Runtime.DHToolboxAssembly.AmountOwner;
 
-namespace Foundations.Scripts.Resource
+namespace DHToolbox.Runtime.DHToolboxAssembly.Resource
 {
     public static class ResourceExtensions
     {

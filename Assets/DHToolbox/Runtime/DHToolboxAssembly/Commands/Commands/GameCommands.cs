@@ -1,6 +1,6 @@
 using System;
 
-namespace DHToolbox.Runtime.Commands.Commands
+namespace DHToolbox.Runtime.DHToolboxAssembly.Commands.Commands
 {
     public abstract class GameCommand : ICommand
     {

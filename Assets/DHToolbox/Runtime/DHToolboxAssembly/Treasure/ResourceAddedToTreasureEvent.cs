@@ -1,8 +1,7 @@
-using DHToolbox.Runtime.EventBus;
-using Foundations.Scripts.Identification;
-using Foundations.Scripts.Resource;
+using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
+using DHToolbox.Runtime.DHToolboxAssembly.Resource;
 
-namespace GameAssets.Scripts
+namespace DHToolbox.Runtime.DHToolboxAssembly.Treasure
 {
     public struct ResourceAddedToTreasureEvent : IEvent
     {

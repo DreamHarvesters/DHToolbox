@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DHToolbox.Runtime.Singleton
+namespace DHToolbox.Runtime.DHToolboxAssembly.Singleton
 {
     public class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {

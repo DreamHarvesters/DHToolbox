@@ -1,4 +1,4 @@
-namespace DHToolbox.Runtime.Singleton
+namespace DHToolbox.Runtime.DHToolboxAssembly.Singleton
 {
     public class Singleton<T> where T : class, new()
     {

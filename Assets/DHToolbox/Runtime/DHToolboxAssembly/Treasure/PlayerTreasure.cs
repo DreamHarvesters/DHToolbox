@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using DHToolbox.Runtime.EventBus;
-using DHToolbox.Runtime.ServiceLocator;
-using Foundations.Scripts.Identification;
-using Foundations.Scripts.Resource;
+using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
+using DHToolbox.Runtime.DHToolboxAssembly.Identification;
+using DHToolbox.Runtime.DHToolboxAssembly.Resource;
 using UnityEngine;
 
-namespace GameAssets.Scripts
+namespace DHToolbox.Runtime.DHToolboxAssembly.Treasure
 {
     public class PlayerTreasure : IEventSender
     {
@@ -26,9 +25,9 @@ namespace GameAssets.Scripts
             if (treasure.TryGetValue(id, out resource))
                 return resource;
 
-            resource = new Resource(id);
+            resource = new Resource.Resource(id);
             treasure.Add(id, resource);
-            ServiceLocator.GetService<EventBus>().Raise(new ResourceAddedToTreasureEvent(resource, this));
+            ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>().Raise(new ResourceAddedToTreasureEvent(resource, this));
             return resource;
         }
 
