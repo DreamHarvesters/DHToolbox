@@ -6,7 +6,7 @@ using UnityEngine;
 #if UNITY_EDITOR
 #endif
 
-namespace Foundations.Scripts.Utils
+namespace DHToolbox.Runtime.Utils
 {
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Foundations.Scripts.AmountOwner
+namespace DHToolbox.Runtime.DHToolboxAssembly.AmountOwner
 {
     public interface IReactiveNumber<T>
     {

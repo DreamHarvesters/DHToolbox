@@ -1,9 +1,8 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace Foundations.Scripts.Utils.Extensions
+namespace DHToolbox.Runtime.DHToolboxAssembly.Utils.Extensions
 {
     public static class IEnumerableExtensions
     {

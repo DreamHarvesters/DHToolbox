@@ -1,4 +1,4 @@
-namespace DHToolbox.Runtime.Persistency
+namespace DHToolbox.Runtime.DHToolboxAssembly.Persistency
 {
     public interface IPersistency
     {

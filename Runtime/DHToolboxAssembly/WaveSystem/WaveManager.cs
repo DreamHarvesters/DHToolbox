@@ -1,11 +1,11 @@
 using System;
+using UniRx;
+using UnityEngine;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
-using UniRx;
-using UnityEngine;
 
-namespace GameAssets.Scripts.Waves
+namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 {
     public class WaveManager : MonoBehaviour
     {

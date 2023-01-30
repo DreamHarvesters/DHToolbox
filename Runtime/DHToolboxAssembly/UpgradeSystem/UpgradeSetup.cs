@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-namespace Foundations.Scripts.UpgradeSystem
+namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
 {
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;

@@ -1,7 +1,7 @@
-using DHToolbox.Runtime.Persistency;
+using DHToolbox.Runtime.DHToolboxAssembly.Persistency;
 using UnityEngine;
 
-namespace DHToolbox.Runtime.AppConfig
+namespace DHToolbox.Runtime.DHToolboxAssembly.AppConfig
 {
     public class AppConfig : ScriptableObject
     {

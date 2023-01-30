@@ -1,7 +1,7 @@
 using System;
 using UniRx;
 
-namespace DHToolbox.Runtime.EventBus
+namespace DHToolbox.Runtime.DHToolboxAssembly.EventBus
 {
     public class EventBus : IObservable<IEvent>
     {

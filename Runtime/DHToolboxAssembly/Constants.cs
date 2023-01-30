@@ -1,4 +1,4 @@
-namespace DHToolbox.Runtime
+namespace DHToolbox.Runtime.DHToolboxAssembly
 {
     public class Constants
     {

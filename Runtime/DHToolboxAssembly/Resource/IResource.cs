@@ -1,6 +1,6 @@
-using Foundations.Scripts.Identification;
+using DHToolbox.Runtime.DHToolboxAssembly.Identification;
 
-namespace Foundations.Scripts.Resource
+namespace DHToolbox.Runtime.DHToolboxAssembly.Resource
 {
     public interface IResource
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DHToolbox.Runtime.Persistency
+namespace DHToolbox.Runtime.DHToolboxAssembly.Persistency
 {
     public class PlayerPrefsPersistency : IPersistency
     {

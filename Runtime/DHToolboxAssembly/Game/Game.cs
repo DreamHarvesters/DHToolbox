@@ -1,7 +1,7 @@
-using DHToolbox.Runtime.EventBus;
-using DHToolbox.Runtime.Game.Events;
+using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
+using DHToolbox.Runtime.DHToolboxAssembly.Game.Events;
 
-namespace DHToolbox.Runtime.Game
+namespace DHToolbox.Runtime.DHToolboxAssembly.Game
 {
     public class Game : IEventSender
     {

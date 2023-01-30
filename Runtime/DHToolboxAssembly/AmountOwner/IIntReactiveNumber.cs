@@ -1,4 +1,4 @@
-﻿namespace Foundations.Scripts.AmountOwner
+﻿namespace DHToolbox.Runtime.DHToolboxAssembly.AmountOwner
 {
     public interface IIntReactiveNumber : IReactiveNumber<int>
     {

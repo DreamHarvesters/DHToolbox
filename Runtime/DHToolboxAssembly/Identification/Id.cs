@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using DHToolbox.Runtime;
-using Foundations.Scripts.Resource;
+using DHToolbox.Runtime.DHToolboxAssembly.Resource;
 using UnityEngine;
 
-namespace Foundations.Scripts.Identification
+namespace DHToolbox.Runtime.DHToolboxAssembly.Identification
 {
     [CreateAssetMenu(fileName = nameof(Id), menuName = Constants.CreateMenuCategory + "/" + nameof(Id), order = 0)]
     public class Id : ScriptableObject

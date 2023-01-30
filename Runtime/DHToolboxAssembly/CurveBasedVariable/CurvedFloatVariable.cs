@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace DHToolbox.Runtime.CurveBasedVariable
+namespace DHToolbox.Runtime.DHToolboxAssembly.CurveBasedVariable
 {
     [Serializable]
     public class CurvedFloatVariable : CurvedVariable<float>

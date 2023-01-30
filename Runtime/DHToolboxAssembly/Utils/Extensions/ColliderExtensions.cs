@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Foundations.Scripts.Utils.Extensions
+namespace DHToolbox.Runtime.DHToolboxAssembly.Utils.Extensions
 {
     public static class ColliderExtensions
     {

@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
-using Foundations.Scripts.Utils.Extensions;
+using DHToolbox.Runtime.DHToolboxAssembly.Utils.Extensions;
 using UniRx;
 using UnityEngine;
 
-namespace GameAssets.Scripts.Waves
+namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 {
     public class Spawner : MonoBehaviour
     {

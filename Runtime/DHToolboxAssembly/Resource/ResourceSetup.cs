@@ -1,8 +1,7 @@
-using DHToolbox.Runtime;
-using Foundations.Scripts.Identification;
+using DHToolbox.Runtime.DHToolboxAssembly.Identification;
 using UnityEngine;
 
-namespace Foundations.Scripts.Resource
+namespace DHToolbox.Runtime.DHToolboxAssembly.Resource
 {
     [CreateAssetMenu(fileName = nameof(ResourceSetup),
         menuName = Constants.CreateMenuCategory + "/" + nameof(ResourceSetup), order = 0)]

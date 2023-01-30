@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DHToolbox.Runtime.CharacterControllers
+namespace DHToolbox.Runtime.DHToolboxAssembly.CharacterControllers
 {
     public abstract class DirectionProvider : MonoBehaviour
     {

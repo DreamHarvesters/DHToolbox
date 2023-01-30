@@ -1,8 +1,8 @@
 using System;
-using DHToolbox.Runtime.Singleton;
-using Foundations.Scripts.Identification;
+using DHToolbox.Runtime.DHToolboxAssembly.Identification;
+using DHToolbox.Runtime.DHToolboxAssembly.Singleton;
 
-namespace Foundations.Scripts.Resource
+namespace DHToolbox.Runtime.DHToolboxAssembly.Resource
 {
     public class ResourceSetupRepository : Singleton<ResourceSetupRepository>
     {

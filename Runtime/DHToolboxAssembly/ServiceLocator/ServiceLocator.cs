@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using DHToolbox.Runtime.Persistency;
 using UnityEngine;
 
-namespace DHToolbox.Runtime.ServiceLocator
+namespace DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator
 {
     public static class ServiceLocator
     {
