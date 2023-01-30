@@ -1,11 +1,12 @@
 using System;
-using DHToolbox.Runtime.EventBus;
-using DHToolbox.Runtime.ServiceLocator;
-using Foundations.Scripts.Resource;
+using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
+using DHToolbox.Runtime.DHToolboxAssembly.Resource;
+using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
+using DHToolbox.Runtime.DHToolboxAssembly.Treasure;
 using UniRx;
 using UnityEngine;
 
-namespace GameAssets.Scripts.UI.PlayerStorageView
+namespace DHToolbox.Runtime.PlayerStorageView
 {
     public class PlayerStorageView : MonoBehaviour
     {

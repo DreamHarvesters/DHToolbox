@@ -1,10 +1,9 @@
 using System;
-using Foundations.Scripts.Resource;
-using UniRx;
+using DHToolbox.Runtime.DHToolboxAssembly.Resource;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameAssets.Scripts.UI.PlayerStorageView
+namespace DHToolbox.Runtime.PlayerStorageView
 {
 #if TM_PRO
     using TMPro;
