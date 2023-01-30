@@ -1,8 +1,9 @@
-using DHToolbox.Runtime.ServiceLocator;
-using Foundations.Scripts.Identification;
-using Foundations.Scripts.Resource;
+using DHToolbox.Runtime.DHToolboxAssembly.Identification;
+using DHToolbox.Runtime.DHToolboxAssembly.Resource;
+using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
+using DHToolbox.Runtime.DHToolboxAssembly.Treasure;
 
-namespace GameAssets.Scripts.UI.PlayerStorageView
+namespace DHToolbox.Runtime.PlayerStorageView
 {
     public class StaticPlayerStorageItem : DynamicPlayerStorageItem
     {
