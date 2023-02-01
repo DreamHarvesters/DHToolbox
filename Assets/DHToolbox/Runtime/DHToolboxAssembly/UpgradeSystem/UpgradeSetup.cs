@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 using UnityEngine;
 
 namespace Foundations.Scripts.UpgradeSystem
@@ -20,17 +23,23 @@ namespace Foundations.Scripts.UpgradeSystem
             property.SetValue(attributes, currentValue + (float)increasePerUpgrade / 100);
         }
 
-        [ValueDropdown(nameof(AttributeClasses))] [SerializeField]
-        private string className;
+#if ODIN_INSPECTOR
+        [ValueDropdown(nameof(AttributeClasses))]
+#endif
+        [SerializeField] private string className;
 
+#if ODIN_INSPECTOR
         private static IEnumerable AttributeClasses => AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => typeof(IUpgradableAttributes).IsAssignableFrom(type) && type.IsClass)
             .Select(type => new ValueDropdownItem<string>(type.Name, type.AssemblyQualifiedName));
+#endif
 
 
-        [ValueDropdown(nameof(UpgradableAttributes))] [SerializeField]
-        private string property;
+#if ODIN_INSPECTOR
+        [ValueDropdown(nameof(UpgradableAttributes))]
+#endif
+        [SerializeField] private string property;
 
         private IEnumerable UpgradableAttributes => Type.GetType(className).GetProperties().Select(info => info.Name);
 
