@@ -42,7 +42,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
             {
                 spawnComplete.OnNext(Unit.Default);
                 spawnComplete.OnCompleted();
-            }).Subscribe();
+            }).Subscribe().AddTo(gameObject);
             var newWave = new Wave(waveSpawning, spawnComplete, NextWaveSetup);
             CurrentWaveIndex++;
             return newWave;
@@ -59,7 +59,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
             {
                 spawnComplete.OnNext(Unit.Default);
                 spawnComplete.OnCompleted();
-            }).Subscribe();
+            }).Subscribe().AddTo(gameObject);
             var newWave = new Wave(waveSpawning, spawnComplete, NextWaveSetup);
             return newWave;
         }
