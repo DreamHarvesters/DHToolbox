@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
+namespace Foundations.Scripts.UpgradeSystem
 {
-#if ODIN_INSPECTOR
-    using Sirenix.OdinInspector;
-#endif
-
     [CreateAssetMenu]
     public class UpgradeSetup : ScriptableObject
     {
@@ -23,24 +20,16 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
             property.SetValue(attributes, currentValue + (float)increasePerUpgrade / 100);
         }
 
-
-#if ODIN_INSPECTOR
-        [ValueDropdown(nameof(AttributeClasses))]
-#endif
-        [SerializeField]
+        [ValueDropdown(nameof(AttributeClasses))] [SerializeField]
         private string className;
 
-#if ODIN_INSPECTOR
         private static IEnumerable AttributeClasses => AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(assembly => assembly.GetTypes())
             .Where(type => typeof(IUpgradableAttributes).IsAssignableFrom(type) && type.IsClass)
             .Select(type => new ValueDropdownItem<string>(type.Name, type.AssemblyQualifiedName));
-#endif
 
 
-#if ODIN_INSPECTOR
         [ValueDropdown(nameof(UpgradableAttributes))] [SerializeField]
-#endif
         private string property;
 
         private IEnumerable UpgradableAttributes => Type.GetType(className).GetProperties().Select(info => info.Name);
@@ -62,5 +51,15 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
         public string Property => property;
 
         public string UpgradeTextOnUI => upgradeTextOnUI;
+
+        public float CurrentLevel(IUpgradableAttributes attributes)
+        {
+            var type = attributes.GetType();
+            var property = type.GetProperty(this.property);
+            if (property == null)
+                throw new Exception($"Invalid property: {this.property}");
+
+            return (float)property.GetValue(attributes) * increaseDividend;
+        }
     }
 }

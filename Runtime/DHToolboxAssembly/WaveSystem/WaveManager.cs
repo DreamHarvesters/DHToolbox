@@ -18,7 +18,15 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 
         [SerializeField] private WaveSetup[] waves;
 
-        public int CurrentWaveIndex { get; private set; } = -1;
+        private IntReactiveProperty currentWaveIndex = new(0);
+
+        public IObservable<int> ObserveCurrentWaveIndex => currentWaveIndex;
+
+        public int CurrentWaveIndex
+        {
+            get => currentWaveIndex.Value;
+            private set { currentWaveIndex.Value = Mathf.Clamp(currentWaveIndex.Value + 1, 0, waves.Length - 1); }
+        }
 
         public WaveSetup CurrentWaveSetup => waves[Mathf.Clamp(CurrentWaveIndex, 0, waves.Length - 1)];
         public WaveSetup NextWaveSetup => waves[Mathf.Clamp(CurrentWaveIndex + 1, 0, waves.Length - 1)];
@@ -26,11 +34,34 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 #if ODIN_INSPECTOR
         [Button]
 #endif
-        public void StartNextWave() => NextWaveSetup.Spawner.StartSpawning(NextWaveSetup).Subscribe();
+        public Wave StartNextWave()
+        {
+            var waveSpawning = NextWaveSetup.Spawner.StartSpawning(NextWaveSetup);
+            var spawnComplete = new Subject<Unit>();
+            waveSpawning.DoOnCompleted(() =>
+            {
+                spawnComplete.OnNext(Unit.Default);
+                spawnComplete.OnCompleted();
+            }).Subscribe();
+            var newWave = new Wave(waveSpawning, spawnComplete, NextWaveSetup);
+            CurrentWaveIndex++;
+            return newWave;
+        }
 
 #if ODIN_INSPECTOR
         [Button]
 #endif
-        public void StartWave(int index) => waves[index].Spawner.StartSpawning(waves[index]).Subscribe();
+        public Wave StartWave(int index)
+        {
+            var waveSpawning = waves[index].Spawner.StartSpawning(waves[index]);
+            var spawnComplete = new Subject<Unit>();
+            waveSpawning.DoOnCompleted(() =>
+            {
+                spawnComplete.OnNext(Unit.Default);
+                spawnComplete.OnCompleted();
+            }).Subscribe();
+            var newWave = new Wave(waveSpawning, spawnComplete, NextWaveSetup);
+            return newWave;
+        }
     }
 }
