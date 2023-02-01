@@ -1,3 +1,6 @@
+using System;
+using UniRx;
+
 namespace DHToolbox.Runtime.Utils.Extensions
 {
 #if LEAN_TOUCH
@@ -20,6 +23,10 @@ namespace DHToolbox.Runtime.Utils.Extensions
         public static IObservable<LeanFinger> OnFingerUpdateAsObservable() =>
             Observable.FromEvent<LeanFinger>(action => LeanTouch.OnFingerUpdate += action,
                 action => LeanTouch.OnFingerUpdate -= action);
+
+        public static IObservable<LeanFinger> OnFingerSwipeAsObservable() =>
+            Observable.FromEvent<LeanFinger>(action => LeanTouch.OnFingerSwipe += action,
+                action => LeanTouch.OnFingerSwipe -= action);
     }
 #endif
 }
