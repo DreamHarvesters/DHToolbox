@@ -34,14 +34,22 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator
             throw new KeyNotFoundException($"Service type not found: {typeof(T).Name}");
         }
 
+        private static AppConfig.AppConfig config;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
         static void Initialize()
         {
-            var config = Resources.Load<AppConfig.AppConfig>(nameof(AppConfig.AppConfig));
+            config = Resources.Load<AppConfig.AppConfig>(nameof(AppConfig.AppConfig));
             if (!config)
                 config = ScriptableObject.CreateInstance<AppConfig.AppConfig>();
 
-            config.Configure();
+            config.ConfigureAfterAssembliesLoaded();
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        static void ConfigureAfterSceneLoaded()
+        {
+            config.ConfigureAfterSceneLoaded();
         }
     }
 }
