@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
+using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
 using DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #endif
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Foundations.Scripts.UpgradeSystem
 {
     [CreateAssetMenu]
-    public class UpgradeSetup : ScriptableObject
+    public class UpgradeSetup : ScriptableObject, IEventSender
     {
         public virtual void Apply(IUpgradableAttributes attributes)
         {
@@ -21,6 +24,8 @@ namespace Foundations.Scripts.UpgradeSystem
 
             var currentValue = (float)property.GetValue(attributes);
             property.SetValue(attributes, currentValue + (float)increasePerUpgrade / 100);
+
+            ServiceLocator.GetService<EventBus>().Raise(new UpgradedEvent(attributes, this));
         }
 
 #if ODIN_INSPECTOR
