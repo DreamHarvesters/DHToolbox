@@ -13,5 +13,6 @@ jobs:
         fetch-depth: 0
     - name: split submodule branch
       run: |
+        git branch -D submodule
         git subtree split -P "Assets/DHToolbox" -b submodule
         git push -u origin submodule
