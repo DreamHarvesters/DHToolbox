@@ -17,13 +17,22 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Identification
 
         [SerializeField] private string value;
 
-        public string Value => value;
+        public string Value
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(value))
+                    return value;
+
+                return name;
+            }
+        }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj is Id key) return key.value.Equals(value);
+            if (obj is Id key) return key.Value.Equals(Value);
             if (obj is IResource res) return res.Id.Equals(this);
             if (obj is string keyValue) return keyValue.Equals(this.Value);
 
@@ -32,7 +41,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Identification
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(base.GetHashCode(), value);
+            return HashCode.Combine(base.GetHashCode(), Value);
         }
 
         private sealed class ValueEqualityComparer : IEqualityComparer<Id>
@@ -43,12 +52,12 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Identification
                 if (ReferenceEquals(x, null)) return false;
                 if (ReferenceEquals(y, null)) return false;
                 if (x.GetType() != y.GetType()) return false;
-                return x.value == y.value;
+                return x.Value == y.Value;
             }
 
             public int GetHashCode(Id obj)
             {
-                return (obj.value != null ? obj.value.GetHashCode() : 0);
+                return (obj.Value != null ? obj.Value.GetHashCode() : 0);
             }
         }
 
