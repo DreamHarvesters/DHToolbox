@@ -37,7 +37,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator
         private static AppConfig.AppConfig config;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-        static void Initialize()
+        static void ConfigureAfterAssembliesLoaded()
         {
             config = Resources.Load<AppConfig.AppConfig>(nameof(AppConfig.AppConfig));
             if (!config)
