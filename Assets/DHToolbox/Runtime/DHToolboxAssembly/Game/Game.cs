@@ -1,12 +1,22 @@
 using Cysharp.Threading.Tasks;
+using System;
 using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
 using DHToolbox.Runtime.DHToolboxAssembly.Game.Events;
+using UniRx;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.Game
 {
     public class Game : IEventSender
     {
-        public GameState CurrentState { get; private set; }
+        private ReactiveProperty<GameState> state = new ReactiveProperty<GameState>();
+
+        public IObservable<GameState> ObserveState => state;
+
+        public GameState CurrentState
+        {
+            get => state.Value;
+            private set => state.Value = value;
+        }
 
         private EventBus.EventBus EventBus => ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>();
 
@@ -25,7 +35,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Game
             var initEvent = new BeforeInitializeEvent(this);
             EventBus.Raise(initEvent);
             UniTask.WhenAll(initEvent.Initializables.Select(initializable => initializable.Initialize()))
-                .ContinueWith(() => EventBus.Raise(new AfterInitializeEvent(this)));
+                .ContinueWith(() => EventBus.Raise(new AfterInitializeEvent(this)))
+                .ContinueWith(LoadLevel)
+                .ContinueWith(MainMenu);
         }
 
         public void MainMenu() => SetState(GameState.MainMenu);
