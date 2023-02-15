@@ -19,17 +19,20 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Treasure
             }
         }
 
-        public ICountableResource GetOrAdd(Id id)
+        public ICountableResource GetOrAdd(Id id, Func<ICountableResource> resourceFactory)
         {
             ICountableResource resource;
             if (treasure.TryGetValue(id, out resource))
                 return resource;
 
-            resource = new Resource.Resource(id);
+            resource = resourceFactory();
             treasure.Add(id, resource);
-            ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>().Raise(new ResourceAddedToTreasureEvent(resource, this));
+            ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>()
+                .Raise(new ResourceAddedToTreasureEvent(resource, this));
             return resource;
         }
+
+        public ICountableResource GetOrAdd(Id id) => GetOrAdd(id, () => new Resource.Resource(id));
 
         public void Add(Id key, int amount)
         {
