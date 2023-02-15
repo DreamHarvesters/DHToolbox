@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
 using DHToolbox.Runtime.DHToolboxAssembly.Game.Events;
@@ -17,18 +18,27 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Game
             private set => state.Value = value;
         }
 
+        private EventBus.EventBus EventBus => ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>();
+
         protected virtual void SetState(GameState stateType)
         {
-            var eventBus = ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>();
-
             var oldState = CurrentState;
-            eventBus.Raise(new BeforeGameStateChanged() { Sender = this });
+            EventBus.Raise(new BeforeGameStateChanged() { Sender = this });
             CurrentState = stateType;
-            eventBus.Raise(new AfterGameStateChanged()
+            EventBus.Raise(new AfterGameStateChanged()
                 { OldState = oldState, NewState = CurrentState, Sender = this });
         }
 
-        public void Initialize() => SetState(GameState.Initializing);
+        public void Initialize()
+        {
+            SetState(GameState.Initializing);
+            var initEvent = new BeforeInitializeEvent(this);
+            EventBus.Raise(initEvent);
+            UniTask.WhenAll(initEvent.Initializables.Select(initializable => initializable.Initialize()))
+                .ContinueWith(() => EventBus.Raise(new AfterInitializeEvent(this)))
+                .ContinueWith(LoadLevel)
+                .ContinueWith(MainMenu);
+        }
 
         public void MainMenu() => SetState(GameState.MainMenu);
 
