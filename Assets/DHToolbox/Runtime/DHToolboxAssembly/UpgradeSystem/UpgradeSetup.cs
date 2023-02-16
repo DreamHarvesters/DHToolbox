@@ -20,7 +20,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
                 throw new Exception($"Invalid property: {this.property}");
 
             var currentValue = (float)property.GetValue(attributes);
-            property.SetValue(attributes, currentValue + (float)increasePerUpgrade / 100);
+            property.SetValue(attributes, currentValue + (float)increasePerUpgrade / increaseDividend);
 
             ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>().Raise(new UpgradedEvent(attributes, this));
         }
