@@ -55,6 +55,10 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
         [SerializeField]
         private int increaseDividend = 100;
 
+        public int IncreasePerUpgrade => increasePerUpgrade;
+
+        public int IncreaseDividend => increaseDividend;
+
         [SerializeField] private int cost;
 
         public int Cost => cost;
