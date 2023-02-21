@@ -21,7 +21,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.CurveBasedVariable
 
 #if ODIN_INSPECTOR
         [Button]
-        void LogValue(float rate) => Debug.Log($"Value: {Evaluate(rate)}");
+        void LogValue(float rate) => Debug.Log($"Rate: {rate} - Value: {Evaluate(rate)}");
 
         [Button]
         void LogInterval(float from, float to, float step)
