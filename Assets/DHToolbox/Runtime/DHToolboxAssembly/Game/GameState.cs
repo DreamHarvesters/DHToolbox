@@ -5,6 +5,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Game
         Initializing,
         MainMenu,
         LoadingLevel,
+        LevelLoadingComplete,
         InGame,
         Success,
         Fail
