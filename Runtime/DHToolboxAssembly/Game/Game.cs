@@ -37,12 +37,17 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Game
             UniTask.WhenAll(initEvent.Initializables.Select(initializable => initializable.Initialize()))
                 .ContinueWith(() => EventBus.Raise(new AfterInitializeEvent(this)))
                 .ContinueWith(LoadLevel)
-                .ContinueWith(MainMenu);
+                .ContinueWith(() =>
+                    EventBus.AsObservable<AfterGameStateChanged>()
+                        .First(changed => changed.NewState == GameState.LevelLoadingComplete).ToUniTask(true))
+                .ContinueWith(_ => MainMenu());
         }
 
         public void MainMenu() => SetState(GameState.MainMenu);
 
         public void LoadLevel() => SetState(GameState.LoadingLevel);
+
+        public void CompleteLevelLoading() => SetState(GameState.LevelLoadingComplete);
 
         public void StartGame() => SetState(GameState.InGame);
 
