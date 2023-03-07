@@ -40,7 +40,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.GameLevels
                     return Observable.ReturnUnit();
                 })
                 .Switch()
-                .Select(_ => SceneManager.LoadSceneAsync(CurrentSceneIndex).AsObservable())
+                .Select(_ => SceneManager.LoadSceneAsync(CurrentSceneIndex, LoadSceneMode.Additive).AsObservable())
                 .Switch()
                 .Subscribe(_ => ServiceLocator.ServiceLocator.GetService<Game.Game>().CompleteLevelLoading());
 
