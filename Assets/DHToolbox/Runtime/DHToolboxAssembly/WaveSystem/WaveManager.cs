@@ -36,7 +36,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 #endif
         public Wave StartNextWave()
         {
-            var waveSpawning = NextWaveSetup.Spawner.StartSpawning(NextWaveSetup);
+            var waveSpawning = NextWaveSetup.Spawner.StartSpawning(NextWaveSetup).Share();
             var spawnComplete = new Subject<Unit>();
             waveSpawning.DoOnCompleted(() =>
             {
