@@ -14,7 +14,7 @@ namespace DHToolbox.Runtime.PlayerStorageView
             var playerTreasure = ServiceLocator.GetService<PlayerTreasure>();
 
             var setup = ResourceSetupRepository.Instance.GetById(ResourceId);
-            Setup(setup, playerTreasure.GetOrAdd(ResourceId).ObserveAmount);
+            Setup(setup, playerTreasure.GetOrCreate(ResourceId).ObserveAmount);
         }
     }
 }

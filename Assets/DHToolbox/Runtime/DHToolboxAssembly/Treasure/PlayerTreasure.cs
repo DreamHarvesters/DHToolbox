@@ -19,7 +19,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Treasure
             }
         }
 
-        public ICountableResource GetOrAdd(Id id, Func<ICountableResource> resourceFactory)
+        public ICountableResource GetOrCreate(Id id, Func<ICountableResource> resourceFactory)
         {
             ICountableResource resource;
             if (treasure.TryGetValue(id, out resource))
@@ -32,17 +32,17 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Treasure
             return resource;
         }
 
-        public ICountableResource GetOrAdd(Id id) => GetOrAdd(id, () => new Resource.Resource(id));
+        public ICountableResource GetOrCreate(Id id) => GetOrCreate(id, () => new Resource.Resource(id));
 
         public void Add(Id key, int amount)
         {
-            var current = GetOrAdd(key);
+            var current = GetOrCreate(key);
             treasure[key].Set(current.Current + amount);
         }
 
         public void Remove(Id key, int amount)
         {
-            var current = GetOrAdd(key);
+            var current = GetOrCreate(key);
             treasure[key].Set(Mathf.Max(current.Current - amount, 0));
         }
 
