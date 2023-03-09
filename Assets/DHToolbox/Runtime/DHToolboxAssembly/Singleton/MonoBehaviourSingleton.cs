@@ -4,7 +4,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Singleton
 {
     public class MonoBehaviourSingleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T instance;
+        protected static T instance;
 
         public static T Instance
         {
