@@ -1,16 +1,19 @@
 using Cysharp.Threading.Tasks;
 using DHToolbox.Runtime.DHToolboxAssembly.Persistency;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.AppConfig
 {
     public class AppConfig : ScriptableObject
     {
+        public string FirstSceneName;
+
         public void ConfigureAfterAssembliesLoaded()
         {
-            ServiceLocator.ServiceLocator.AddService<Game.Game>(new Game.Game());
-            ServiceLocator.ServiceLocator.AddService<IPersistency>(new PlayerPrefsPersistency());
-            ServiceLocator.ServiceLocator.AddService<EventBus.EventBus>(new EventBus.EventBus());
+            ServiceLocator.ServiceLocator.AddService<Game.Game>(CreateGame());
+            ServiceLocator.ServiceLocator.AddService<IPersistency>(CreatePersistency());
+            ServiceLocator.ServiceLocator.AddService<EventBus.EventBus>(CreateEventBus());
 
             CustomConfigureAfterAssembliesLoaded();
         }
@@ -18,11 +21,18 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.AppConfig
         public void ConfigureAfterSceneLoaded()
         {
             CustomConfigureAfterSceneLoaded()
+                .ContinueWith(() => UniTask.WaitUntil(() => SceneManager.GetActiveScene().name.Equals(FirstSceneName)))
                 .ContinueWith(() => ServiceLocator.ServiceLocator.GetService<Game.Game>().Initialize());
         }
 
-        public virtual UniTask CustomConfigureAfterAssembliesLoaded() => UniTask.CompletedTask;
+        protected virtual Game.Game CreateGame() => new Game.Game();
 
-        public virtual UniTask CustomConfigureAfterSceneLoaded() => UniTask.CompletedTask;
+        protected virtual IPersistency CreatePersistency() => new PlayerPrefsPersistency();
+
+        protected virtual EventBus.EventBus CreateEventBus() => new EventBus.EventBus();
+
+        protected virtual UniTask CustomConfigureAfterAssembliesLoaded() => UniTask.CompletedTask;
+
+        protected virtual UniTask CustomConfigureAfterSceneLoaded() => UniTask.CompletedTask;
     }
 }
