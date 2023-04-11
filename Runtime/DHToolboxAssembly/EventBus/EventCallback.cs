@@ -3,7 +3,9 @@ using System.Collections;
 using System.Linq;
 using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
 using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
