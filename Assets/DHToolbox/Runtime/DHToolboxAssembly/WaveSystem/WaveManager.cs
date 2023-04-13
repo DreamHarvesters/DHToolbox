@@ -22,6 +22,8 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 
         public IObservable<int> ObserveCurrentWaveIndex => currentWaveIndex;
 
+        public int WavesLength => waves.Length;
+
         public int CurrentWaveIndex
         {
             get => currentWaveIndex.Value;
