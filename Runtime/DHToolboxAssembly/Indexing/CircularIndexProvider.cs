@@ -15,9 +15,6 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Indexing
 
         public CircularIndexProvider(int min, int max, int current)
         {
-            if (current < min || current > max)
-                throw new Exception("Invalid next value. Must be between min and max");
-
             this.min = min;
             this.max = max;
             Current = Mathf.Max(min, current % max);
