@@ -17,9 +17,10 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Indexing
         {
             this.min = min;
             this.max = max;
-            Current = Mathf.Max(min, current % max);
+
+            Current = (current - min) % (max - min) + min;
         }
 
-        public override int Next => Mathf.Max(min, (Current + 1) % max);
+        public override int Next => (Current - min + 1) % (max - min) + min;
     }
 }
