@@ -86,3 +86,6 @@ UserSettings/
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .DS_Store
+
+Assets/Plugins
+Assets/Plugins.meta
