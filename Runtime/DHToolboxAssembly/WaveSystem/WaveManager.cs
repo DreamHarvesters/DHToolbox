@@ -1,4 +1,5 @@
 using System;
+using DHToolbox.Runtime.DHToolboxAssembly.Singleton;
 using UniRx;
 using UnityEngine;
 #if ODIN_INSPECTOR
@@ -7,7 +8,7 @@ using Sirenix.OdinInspector;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 {
-    public class WaveManager : MonoBehaviour
+    public class WaveManager : MonoBehaviourSingleton<WaveManager>
     {
         [Serializable]
         public class WaveSetup
@@ -64,6 +65,14 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
             }).Subscribe().AddTo(gameObject);
             var newWave = new Wave(waveSpawning, spawnComplete, NextWaveSetup);
             return newWave;
+        }
+
+#if ODIN_INSPECTOR
+        [Button]
+#endif
+        public void StopCurrentWave()
+        {
+            CurrentWaveSetup.Spawner.Stop();
         }
     }
 }
