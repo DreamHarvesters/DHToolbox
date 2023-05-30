@@ -10,6 +10,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
     {
         [SerializeField] private SpawnTransform[] spawnTransforms;
 
+        private Subject<Unit> stop = new();
+        private bool paused;
+
         public IObservable<GameObject> StartSpawning(WaveManager.WaveSetup waveSetup)
         {
             var waveDifficultySetup = waveSetup.WaveDifficultySetup;
@@ -21,7 +24,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 
             int countFromPrefabSetup = 0;
             return Observable.Interval(frequency)
-                .Take(totalCount).Select(_ =>
+                .Where(_ => !paused)
+                .Take(totalCount)
+                .Select(_ =>
                 {
                     var newPrefab = Instantiate(prefabSetups[^1].Prefabs.GetRandom(),
                         spawnTransforms.GetRandom().RandomPosition,
@@ -33,7 +38,14 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
                     }
 
                     return newPrefab;
-                });
+                })
+                .TakeUntil(stop);
         }
+
+        public void Stop() => stop.OnNext(Unit.Default);
+
+        public void Pause() => paused = true;
+
+        public void Unpause() => paused = false;
     }
 }
