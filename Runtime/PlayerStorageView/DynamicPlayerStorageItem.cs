@@ -21,7 +21,8 @@ namespace DHToolbox.Runtime.PlayerStorageView
         public void Setup(ResourceSetup resourceSetup, IObservable<int> reactiveAmount)
         {
 #if TM_PRO
-            productName.text = resourceSetup.UIName;
+            if (productName)
+                productName.text = resourceSetup.UIName;
             reactiveAmount
                 .SubscribeWithState(productAmount, (amount, amountText) => amountText.text = amount.ToString())
                 .AddTo(gameObject);
