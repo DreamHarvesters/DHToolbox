@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DHToolbox.Runtime.DHToolboxAssembly;
 using Sirenix.OdinInspector;
 using UniRx;
 #if UNITY_EDITOR
@@ -12,7 +13,7 @@ using Random = UnityEngine.Random;
 
 namespace TemplateAssets.Scripts.Zoning
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(fileName = nameof(Zoning), menuName = Constants.CreateMenuCategory + "/" + nameof(Zoning), order = 0)]
     public class Zoning : ScriptableObject
     {
 #if UNITY_EDITOR
