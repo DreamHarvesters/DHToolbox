@@ -11,27 +11,12 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.CharacterControllers
         [SerializeField] private DirectionProvider directionProvider;
         [SerializeField] protected SpeedProvider speedProvider;
 
-        // protected Joystick Joystick
-        // {
-        //     get
-        //     {
-        //         if (joystick == null)
-        //             joystick = FindObjectOfType<Joystick>();
-        //
-        //         return joystick;
-        //     }
-        // }
-        //
-        // protected virtual void OnValidate()
-        // {
-        //     if (joystick == null)
-        //         joystick = FindObjectOfType<Joystick>();
-        // }
+        public Func<BaseMotor, bool> CanMove = _ => true;
 
         protected void Start()
         {
             Update
-                .Where(_ => enabled)
+                .Where(_ => enabled && CanMove(this))
                 .Subscribe(_ => Move(directionProvider.Direction))
                 .AddTo(gameObject);
 
