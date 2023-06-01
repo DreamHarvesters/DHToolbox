@@ -19,7 +19,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 
         [SerializeField] private WaveSetup[] waves;
 
-        private IntReactiveProperty currentWaveIndex = new(0);
+        private IntReactiveProperty currentWaveIndex = new(-1);
 
         public IObservable<int> ObserveCurrentWaveIndex => currentWaveIndex;
 
@@ -28,7 +28,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
         public int CurrentWaveIndex
         {
             get => currentWaveIndex.Value;
-            private set { currentWaveIndex.Value = Mathf.Clamp(currentWaveIndex.Value + 1, 0, waves.Length - 1); }
+            private set { currentWaveIndex.Value = Mathf.Clamp(value, 0, waves.Length - 1); }
         }
 
         public WaveSetup CurrentWaveSetup => waves[Mathf.Clamp(CurrentWaveIndex, 0, waves.Length - 1)];
