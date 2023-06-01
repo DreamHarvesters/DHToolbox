@@ -13,6 +13,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
         private Subject<Unit> stop = new();
         private bool paused;
 
+        private Subject<GameObject> spawned = new();
+        public IObservable<GameObject> ObserveSpawn => spawned;
+
         public IObservable<GameObject> StartSpawning(WaveManager.WaveSetup waveSetup)
         {
             var waveDifficultySetup = waveSetup.WaveDifficultySetup;
@@ -37,6 +40,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
                         countFromPrefabSetup = 0;
                     }
 
+                    spawned.OnNext(newPrefab);
                     return newPrefab;
                 })
                 .TakeUntil(stop);
