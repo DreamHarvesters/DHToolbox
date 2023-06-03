@@ -11,6 +11,15 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Resource
         [SerializeField] private Sprite icon;
         [SerializeField] private string uIName;
 
+        public static ResourceSetup Create(Id id, Sprite icon, string uiName)
+        {
+            var newSetup = ScriptableObject.CreateInstance<ResourceSetup>();
+            newSetup.id = id;
+            newSetup.icon = icon;
+            newSetup.uIName = uiName;
+            return newSetup;
+        }
+
         public Id Id => id;
 
         public Sprite Icon => icon;

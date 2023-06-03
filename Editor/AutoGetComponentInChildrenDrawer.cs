@@ -2,7 +2,7 @@ using DHToolbox.Runtime.DHToolboxAssembly.Attributes;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameAssets.Scripts.Utils
+namespace DHToolbox.Editor
 {
     [CustomPropertyDrawer(typeof(AutoGetComponentInChildrenAttribute))]
     public class AutoGetComponentInChildrenDrawer : PropertyDrawer
