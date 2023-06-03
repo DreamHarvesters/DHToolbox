@@ -19,7 +19,7 @@ namespace DHToolbox.Editor
                 if (parentComponent != null)
                 {
                     var componentType = fieldInfo.FieldType;
-                    var component = parentComponent.GetComponentInChildren(componentType);
+                    var component = parentComponent.GetComponentInParent(componentType);
                     property.objectReferenceValue = component;
                 }
             }
