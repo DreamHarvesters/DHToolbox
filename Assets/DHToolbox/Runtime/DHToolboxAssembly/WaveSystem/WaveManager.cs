@@ -34,6 +34,8 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
         public WaveSetup CurrentWaveSetup => waves[Mathf.Clamp(CurrentWaveIndex, 0, waves.Length - 1)];
         public WaveSetup NextWaveSetup => waves[Mathf.Clamp(CurrentWaveIndex + 1, 0, waves.Length - 1)];
 
+        public bool WavesCompleted => currentWaveIndex.Value == waves.Length - 1;
+
 #if ODIN_INSPECTOR
         [Button]
 #endif
