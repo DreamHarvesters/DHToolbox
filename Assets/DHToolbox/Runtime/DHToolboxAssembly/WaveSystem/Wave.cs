@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
@@ -28,12 +30,14 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 
             ObserveSpawn.Subscribe(spawned =>
             {
-                spawned.OnDestroyAsObservable().Subscribe(_ =>
-                {
-                    spawnedItems.Remove(spawned);
-                    if (spawnedItems.Count == 0)
-                        allSpawnedItemsDestroyed.OnNext(Unit.Default);
-                });
+                spawned.OnDestroyAsObservable()
+                    .TakeUntil(spawned.GetAsyncApplicationQuitTrigger().OnApplicationQuitAsync().ToObservable())
+                    .Subscribe(_ =>
+                    {
+                        spawnedItems.Remove(spawned);
+                        if (spawnedItems.Count == 0)
+                            allSpawnedItemsDestroyed.OnNext(Unit.Default);
+                    });
                 spawnedItems.Add(spawned);
             });
         }
