@@ -13,8 +13,8 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
         private Subject<Unit> stop = new();
         private bool paused;
 
-        private Subject<GameObject> spawned = new();
-        public IObservable<GameObject> ObserveSpawn => spawned;
+        private Subject<( SpawnTransform, GameObject )> spawned = new();
+        public IObservable<( SpawnTransform, GameObject )> ObserveSpawn => spawned;
 
         public IObservable<GameObject> StartSpawning(WaveManager.WaveSetup waveSetup)
         {
@@ -31,8 +31,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
                 .Take(totalCount)
                 .Select(_ =>
                 {
+                    var spawnTransform = spawnTransforms.GetRandom();
                     var newPrefab = Instantiate(prefabSetups[^1].Prefabs.GetRandom(),
-                        spawnTransforms.GetRandom().RandomPosition,
+                        spawnTransform.RandomPosition,
                         Quaternion.identity);
                     if (++countFromPrefabSetup >= prefabSetups[^1].Amount)
                     {
@@ -40,7 +41,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
                         countFromPrefabSetup = 0;
                     }
 
-                    spawned.OnNext(newPrefab);
+                    spawned.OnNext((spawnTransform, newPrefab));
                     return newPrefab;
                 })
                 .TakeUntil(stop);
