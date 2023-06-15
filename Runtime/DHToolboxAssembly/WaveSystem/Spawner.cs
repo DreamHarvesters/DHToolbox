@@ -20,28 +20,25 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
         {
             var waveDifficultySetup = waveSetup.WaveDifficultySetup;
 
-            var prefabSetups = IEnumerableExtensions.Shuffle(waveDifficultySetup.WavePrefabs).ToList();
-            var totalCount = prefabSetups.Sum(setup => setup.Amount);
+            var prefabs = waveDifficultySetup.WavePrefabs.SelectMany(setup =>
+                Enumerable.Range(0, setup.Amount).Select(_ => setup.Prefabs.GetRandom())).ToArray().Shuffle();
+            var totalCount = prefabs.Length;
 
             var frequency = TimeSpan.FromSeconds(waveDifficultySetup.Duration / totalCount);
 
-            int countFromPrefabSetup = 0;
+            int instantiatedCount = 0;
             return Observable.Interval(frequency)
                 .Where(_ => !paused)
                 .Take(totalCount)
                 .Select(_ =>
                 {
                     var spawnTransform = spawnTransforms.GetRandom();
-                    var newPrefab = Instantiate(prefabSetups[^1].Prefabs.GetRandom(),
+                    var newPrefab = Instantiate(prefabs[instantiatedCount],
                         spawnTransform.RandomPosition,
                         Quaternion.identity);
-                    if (++countFromPrefabSetup >= prefabSetups[^1].Amount)
-                    {
-                        prefabSetups.Remove(prefabSetups[^1]);
-                        countFromPrefabSetup = 0;
-                    }
 
                     spawned.OnNext((spawnTransform, newPrefab));
+                    instantiatedCount++;
                     return newPrefab;
                 })
                 .TakeUntil(stop);
