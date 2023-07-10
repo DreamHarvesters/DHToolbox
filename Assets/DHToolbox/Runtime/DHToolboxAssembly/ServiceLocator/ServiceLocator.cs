@@ -8,6 +8,14 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator
     {
         private static Dictionary<Type, object> services = new Dictionary<Type, object>();
 
+        public static void SetService<T>(object service) where T : class
+        {
+            if (!services.ContainsKey(typeof(T)))
+                throw new Exception($"Service not exist: {typeof(T).Name}");
+
+            services[typeof(T)] = service;
+        }
+
         public static void AddService<T>(object service) where T : class
         {
             if (services.ContainsKey(typeof(T)))
