@@ -28,7 +28,7 @@ namespace DHToolbox.Runtime.PlayerStorageView
                 .AddTo(gameObject);
 #endif
 
-            if (resourceSetup.Icon)
+            if (resourceSetup.Icon && icon)
                 icon.sprite = resourceSetup.Icon;
         }
     }
