@@ -38,18 +38,12 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Treasure
         {
             var current = GetOrCreate(key);
             treasure[key].Set(current.Current + amount);
-
-            ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>()
-                .Raise(new TreasureResourceIncreased(treasure[key], this));
         }
 
         public void Remove(Id key, int amount)
         {
             var current = GetOrCreate(key);
             treasure[key].Set(Mathf.Max(current.Current - amount, 0));
-
-            ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>()
-                .Raise(new TreasureResourceDecreased(treasure[key], this));
         }
 
         public PlayerTreasure()
