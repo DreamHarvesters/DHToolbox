@@ -9,7 +9,8 @@ using Sirenix.OdinInspector;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(fileName = nameof(UpgradeSetup),
+        menuName = Constants.CreateMenuCategory + "/" + nameof(UpgradeSetup), order = 0)]
     public class UpgradeSetup : ScriptableObject, IEventSender
     {
         public virtual void Apply(IUpgradableAttributes attributes)
@@ -28,7 +29,8 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
 #if ODIN_INSPECTOR
         [ValueDropdown(nameof(AttributeClasses))]
 #endif
-        [SerializeField] private string className;
+        [SerializeField]
+        private string className;
 
 #if ODIN_INSPECTOR
         private static IEnumerable AttributeClasses => AppDomain.CurrentDomain.GetAssemblies()
@@ -41,7 +43,8 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
 #if ODIN_INSPECTOR
         [ValueDropdown(nameof(UpgradableAttributes))]
 #endif
-        [SerializeField] private string property;
+        [SerializeField]
+        private string property;
 
         private IEnumerable UpgradableAttributes => Type.GetType(className).GetProperties().Select(info => info.Name);
 
