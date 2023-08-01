@@ -1,5 +1,7 @@
 ﻿using System;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,22 +10,39 @@ namespace TemplateAssets.Scripts.Zoning
     [Serializable]
     public class ZonedProperty
     {
-        [SerializeField] [HideInInspector] private string name;
+        [SerializeField]
+        [HideInInspector]
+        private string name;
 
-        [SerializeField] [HideInInspector] private ShaderPropertyType propertyType;
+        [SerializeField]
+        [HideInInspector]
+        private ShaderPropertyType propertyType;
 
-        [ShowIf("@this.propertyType == ShaderPropertyType.Color")] [LabelText("$name")] [SerializeField]
+#if ODIN_INSPECTOR
+        [ShowIf("@this.propertyType == ShaderPropertyType.Color")]
+        [LabelText("$name")]
+#endif
+        [SerializeField]
         private Color color;
 
-        [ShowIf("@this.propertyType == ShaderPropertyType.Texture")] [LabelText("$name")] [SerializeField]
+#if ODIN_INSPECTOR
+        [ShowIf("@this.propertyType == ShaderPropertyType.Texture")]
+        [LabelText("$name")]
+#endif
+        [SerializeField]
         private Texture texture;
 
         public string Name => name;
 
         public Action<ZonedProperty> onRemoved;
 
-        public ZonedProperty(string name, ShaderPropertyType propertyType, Color color, Texture texture,
-            Action<ZonedProperty> onRemoved)
+        public ZonedProperty(
+            string name,
+            ShaderPropertyType propertyType,
+            Color color,
+            Texture texture,
+            Action<ZonedProperty> onRemoved
+        )
         {
             this.name = name;
             this.propertyType = propertyType;
@@ -46,7 +65,10 @@ namespace TemplateAssets.Scripts.Zoning
         }
 
 #if UNITY_EDITOR
+
+#if ODIN_INSPECTOR
         [Button, GUIColor(1, 0, 0)]
+#endif
         public void Remove()
         {
             onRemoved?.Invoke(this);

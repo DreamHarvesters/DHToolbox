@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 using UnityEngine;
 
 namespace TemplateAssets.Scripts.Zoning
@@ -11,10 +13,14 @@ namespace TemplateAssets.Scripts.Zoning
     {
         private Zoning zoning;
 
+#if ODIN_INSPECTOR
         [ListDrawerSettings(DraggableItems = false, ShowIndexLabels = true)]
-        [SerializeField] private List<ZonedMaterial> materials;
+#endif
+        [SerializeField]
+        private List<ZonedMaterial> materials;
 
-        [SerializeField] private string tag;
+        [SerializeField]
+        private string tag;
 
         public string Tag => tag;
 
@@ -29,17 +35,21 @@ namespace TemplateAssets.Scripts.Zoning
             foreach (ZonedMaterial zonedMaterial in materials)
             {
                 zonedMaterial.Apply();
-            }   
+            }
         }
 
 #if UNITY_EDITOR
+#if ODIN_INSPECTOR
         [Button(ButtonSizes.Large), GUIColor(1, 0, 0)]
+#endif
         public void Remove()
         {
             zoning.Remove(this);
         }
 
+#if ODIN_INSPECTOR
         [Button(ButtonSizes.Large)]
+#endif
         public void Duplicate()
         {
             zoning.AddZone(Clone());
@@ -48,7 +58,7 @@ namespace TemplateAssets.Scripts.Zoning
         public void Init(Zoning zoning)
         {
             this.zoning = zoning;
-            
+
             foreach (ZonedMaterial zonedMaterial in materials)
             {
                 zonedMaterial.Init();
@@ -62,8 +72,10 @@ namespace TemplateAssets.Scripts.Zoning
 
         private Zone Clone()
         {
-            List<ZonedMaterial> duplicatedMaterials =
-                Enumerable.Range(0, materials.Count).Select(i => materials[i].Clone()).ToList();
+            List<ZonedMaterial> duplicatedMaterials = Enumerable
+                .Range(0, materials.Count)
+                .Select(i => materials[i].Clone())
+                .ToList();
             return new Zone(zoning, duplicatedMaterials);
         }
 #endif

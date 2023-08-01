@@ -2,40 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using DHToolbox.Runtime.DHToolboxAssembly;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+using Sirenix.Utilities.Editor;
+#endif
 using UniRx;
 #if UNITY_EDITOR
 using UnityEditor;
-using Sirenix.Utilities.Editor;
 #endif
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace TemplateAssets.Scripts.Zoning
 {
-    [CreateAssetMenu(fileName = nameof(Zoning), menuName = Constants.CreateMenuCategory + "/" + nameof(Zoning), order = 0)]
+    [CreateAssetMenu(
+        fileName = nameof(Zoning),
+        menuName = Constants.CreateMenuCategory + "/" + nameof(Zoning),
+        order = 0
+    )]
     public class Zoning : ScriptableObject
     {
 #if UNITY_EDITOR
+#if ODIN_INSPECTOR
         [TitleGroup("Operations")]
         [Button(ButtonSizes.Large, ButtonStyle.FoldoutButton)]
         [InfoBox(
-            "Sets up given number of zones with given materials. All have the same materials. This is a shortcut to create multiple zones which share the same materials.")]
+            "Sets up given number of zones with given materials. All have the same materials. This is a shortcut to create multiple zones which share the same materials."
+        )]
+#endif
         public void Setup(int zoneCount, Material[] materials)
         {
             zones = new List<Zone>(zoneCount);
 
             for (int i = 0; i < zoneCount; i++)
             {
-                List<ZonedMaterial> zonedMaterials =
-                    Enumerable.Range(0, materials.Length).Select(index => new ZonedMaterial(materials[index])).ToList();
+                List<ZonedMaterial> zonedMaterials = Enumerable
+                    .Range(0, materials.Length)
+                    .Select(index => new ZonedMaterial(materials[index]))
+                    .ToList();
 
                 zones.Add(new Zone(this, new List<ZonedMaterial>(zonedMaterials)));
             }
         }
 
+#if ODIN_INSPECTOR
         [TitleGroup("Operations")]
         [Button(ButtonSizes.Large, ButtonStyle.FoldoutButton)]
+#endif
         public void AddMaterialToAll(Material material)
         {
             foreach (Zone zone in zones)
@@ -48,9 +61,14 @@ namespace TemplateAssets.Scripts.Zoning
         // [Button(ButtonSizes.Large), GUIColor(1, 0, 0)]
         public void Clear()
         {
-            if (EditorUtility.DisplayDialog("Clear All",
-                "You will lose all the zone settings permanentyl. Are you sure to continue?",
-                "Yes", "No"))
+            if (
+                EditorUtility.DisplayDialog(
+                    "Clear All",
+                    "You will lose all the zone settings permanentyl. Are you sure to continue?",
+                    "Yes",
+                    "No"
+                )
+            )
                 zones = new List<Zone>();
         }
 
@@ -72,13 +90,21 @@ namespace TemplateAssets.Scripts.Zoning
 
         private void DrawZonesTitleBar()
         {
+#if ODIN_INSPECTOR
             if (SirenixEditorGUI.ToolbarButton("Clear"))
                 Clear();
+#endif
         }
 #endif
 
-        [ListDrawerSettings(HideRemoveButton = true, DraggableItems = false, OnTitleBarGUI = "DrawZonesTitleBar",
-            ShowIndexLabels = true)]
+#if ODIN_INSPECTOR
+        [ListDrawerSettings(
+            HideRemoveButton = true,
+            DraggableItems = false,
+            OnTitleBarGUI = "DrawZonesTitleBar",
+            ShowIndexLabels = true
+        )]
+#endif
         [SerializeField]
         private List<Zone> zones;
 
@@ -94,6 +120,7 @@ namespace TemplateAssets.Scripts.Zoning
             get { return zones.Count - 1; }
         }
 
+#if ODIN_INSPECTOR
         [TitleGroup("Test")]
         [Button(ButtonSizes.Large, ButtonStyle.FoldoutButton)]
         public void Apply([PropertyRange(0, "zoneCount")] int index)
@@ -104,6 +131,7 @@ namespace TemplateAssets.Scripts.Zoning
             current = index;
             Apply(zones[current]);
         }
+#endif
 
         public void ApplyRandom()
         {

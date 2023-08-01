@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#endif
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -10,12 +12,17 @@ namespace TemplateAssets.Scripts.Zoning
     [Serializable]
     public class ZonedMaterial
     {
-        [OnValueChanged("UpdatePropertyList")] [SerializeField]
+#if ODIN_INSPECTOR
+        [OnValueChanged("UpdatePropertyList")]
+#endif
+        [SerializeField]
         private Material material;
 
+#if ODIN_INSPECTOR
         [Title("Zoned Elements", Bold = true, TitleAlignment = TitleAlignments.Centered)]
         [GUIColor(0, 1, 0)]
         [ListDrawerSettings(HideAddButton = true, DraggableItems = false)]
+#endif
         [SerializeField]
         private List<ZonedProperty> zonedProperties;
 
@@ -25,13 +32,25 @@ namespace TemplateAssets.Scripts.Zoning
         {
             private ZonedMaterial material;
 
-            [HideInInspector] public string name;
-            [HideInInspector] public ShaderPropertyType propertyType;
+            [HideInInspector]
+            public string name;
 
-            [ShowIf("@this.propertyType == ShaderPropertyType.Color")] [LabelText("$name")] [ReadOnly]
+            [HideInInspector]
+            public ShaderPropertyType propertyType;
+
+#if ODIN_INSPECTOR
+            [ShowIf("@this.propertyType == ShaderPropertyType.Color")]
+            [LabelText("$name")]
+            [ReadOnly]
+#endif
             public Color color;
 
-            [ShowIf("@this.propertyType == ShaderPropertyType.Texture")] [ReadOnly] [LabelText("$name")] [PreviewField]
+#if ODIN_INSPECTOR
+            [ShowIf("@this.propertyType == ShaderPropertyType.Texture")]
+            [ReadOnly]
+            [LabelText("$name")]
+            [PreviewField]
+#endif
             public Texture texture;
 
             public DrawableMaterialProperty(ZonedMaterial material)
@@ -39,7 +58,9 @@ namespace TemplateAssets.Scripts.Zoning
                 this.material = material;
             }
 
+#if ODIN_INSPECTOR
             [Button(ButtonSizes.Large), GUIColor(0, 1, 0)]
+#endif
             public void Zone()
             {
                 material.AddZonedProperty(name, propertyType, color, texture);
@@ -48,14 +69,23 @@ namespace TemplateAssets.Scripts.Zoning
         }
 
         [Space]
-        [Title("Possible Properties To Be Zoned", Bold = true, TitleAlignment = TitleAlignments.Centered)]
+#if ODIN_INSPECTOR
+        [Title(
+            "Possible Properties To Be Zoned",
+            Bold = true,
+            TitleAlignment = TitleAlignments.Centered
+        )]
         [GUIColor(0, 1, 1)]
         [InfoBox(
-            "This is the list of properties in the selected material. Press Zone to enable zoning for a particular property")]
+            "This is the list of properties in the selected material. Press Zone to enable zoning for a particular property"
+        )]
         [ListDrawerSettings(IsReadOnly = true)]
+#endif
         public List<DrawableMaterialProperty> propertyList;
 
+#if ODIN_INSPECTOR
         [Button]
+#endif
         private void UpdatePropertyList()
         {
             Shader shader = material.shader;
@@ -69,7 +99,10 @@ namespace TemplateAssets.Scripts.Zoning
                 string propertyName = shader.GetPropertyName(i);
                 ShaderPropertyType propertyType = shader.GetPropertyType(i);
 
-                if (propertyType == ShaderPropertyType.Color || propertyType == ShaderPropertyType.Texture)
+                if (
+                    propertyType == ShaderPropertyType.Color
+                    || propertyType == ShaderPropertyType.Texture
+                )
                 {
                     DrawableMaterialProperty property = new DrawableMaterialProperty(this)
                     {
@@ -100,8 +133,9 @@ namespace TemplateAssets.Scripts.Zoning
                     UpdatePropertyList();
                 };
 
-                DrawableMaterialProperty property =
-                    propertyList.Find(materialProperty => materialProperty.name == zonedProperty.Name);
+                DrawableMaterialProperty property = propertyList.Find(
+                    materialProperty => materialProperty.name == zonedProperty.Name
+                );
                 propertyList.Remove(property);
             }
         }
@@ -119,14 +153,26 @@ namespace TemplateAssets.Scripts.Zoning
         }
 
 #if UNITY_EDITOR
-        public void AddZonedProperty(string name, ShaderPropertyType propertyType, Color currentColor, Texture texture)
+        public void AddZonedProperty(
+            string name,
+            ShaderPropertyType propertyType,
+            Color currentColor,
+            Texture texture
+        )
         {
-            zonedProperties.Add(new ZonedProperty(name, propertyType, currentColor, texture,
-                (property) =>
-                {
-                    zonedProperties.Remove(property);
-                    UpdatePropertyList();
-                }));
+            zonedProperties.Add(
+                new ZonedProperty(
+                    name,
+                    propertyType,
+                    currentColor,
+                    texture,
+                    (property) =>
+                    {
+                        zonedProperties.Remove(property);
+                        UpdatePropertyList();
+                    }
+                )
+            );
         }
 #endif
 
@@ -141,8 +187,10 @@ namespace TemplateAssets.Scripts.Zoning
 #if UNITY_EDITOR
         public ZonedMaterial Clone()
         {
-            List<ZonedProperty> cloneProps =
-                Enumerable.Range(0, zonedProperties.Count).Select(i => zonedProperties[i].Clone()).ToList();
+            List<ZonedProperty> cloneProps = Enumerable
+                .Range(0, zonedProperties.Count)
+                .Select(i => zonedProperties[i].Clone())
+                .ToList();
             ZonedMaterial zm = new ZonedMaterial(material);
             zm.zonedProperties = cloneProps;
             zm.Init();
