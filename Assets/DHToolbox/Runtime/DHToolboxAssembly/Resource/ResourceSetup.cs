@@ -7,6 +7,16 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Resource
         menuName = Constants.CreateMenuCategory + "/" + nameof(ResourceSetup), order = 0)]
     public class ResourceSetup : ScriptableObject
     {
+        public static ResourceSetup NullResourceSetup
+        {
+            get
+            {
+                var setup = CreateInstance<ResourceSetup>();
+                setup.id = Id.From(string.Empty);
+                return setup;
+            }
+        }
+
         [SerializeField] private Id id;
         [SerializeField] private Sprite icon;
         [SerializeField] private string uIName;
