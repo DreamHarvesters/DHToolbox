@@ -4,7 +4,9 @@ using System.Linq;
 using DHToolbox.Runtime.DHToolboxAssembly;
 #if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
+#if UNITY_EDITOR
 using Sirenix.Utilities.Editor;
+#endif
 #endif
 using UniRx;
 #if UNITY_EDITOR
@@ -91,8 +93,10 @@ namespace TemplateAssets.Scripts.Zoning
         private void DrawZonesTitleBar()
         {
 #if ODIN_INSPECTOR
+#if UNITY_EDITOR
             if (SirenixEditorGUI.ToolbarButton("Clear"))
                 Clear();
+#endif
 #endif
         }
 #endif
