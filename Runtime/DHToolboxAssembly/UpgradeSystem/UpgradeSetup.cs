@@ -73,14 +73,14 @@ namespace GameAssets.Scripts
 
         public string UpgradeTextOnUI => upgradeTextOnUI;
 
-        public int CurrentLevel(IUpgradableAttributes attributes)
+        public float CurrentLevel(IUpgradableAttributes attributes)
         {
             var type = attributes.GetType();
             var property = type.GetProperty(this.property);
             if (property == null)
                 throw new Exception($"Invalid property: {this.property}");
 
-            return (int)property.GetValue(attributes);
+            return (float)property.GetValue(attributes) * maxLevel;
         }
 
         public int CostOfLevel(int level)
@@ -88,7 +88,8 @@ namespace GameAssets.Scripts
             return costCurve.Evaluate((float)level / maxLevel);
         }
 
-        public int CostOfNextLevel(IUpgradableAttributes attributes) => CostOfLevel(CurrentLevel(attributes) + 1);
+        public int CostOfNextLevel(IUpgradableAttributes attributes) =>
+            CostOfLevel((int)(CurrentLevel(attributes) + 1));
 
         public float CurrentLevelEffect(IUpgradableAttributes attributes) =>
             skillEffectCurve.Evaluate((float)CurrentLevel(attributes) / maxLevel);
@@ -98,6 +99,6 @@ namespace GameAssets.Scripts
         public float Max => skillEffectCurve.Max;
 
         public float NormalizedLevelEffect(IUpgradableAttributes attributes) =>
-            CurrentLevelEffect(attributes) - Min / Max - Min;
+            (CurrentLevelEffect(attributes) - Min) / (Max - Min);
     }
 }
