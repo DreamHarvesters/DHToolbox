@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using DHToolbox.Runtime.DHToolboxAssembly.CurveBasedVariable;
 using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
-using UnityEngine;
-#if ODIN_INSPECTOR
+using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
+using DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem;
 using Sirenix.OdinInspector;
-#endif
+using UnityEngine;
 
-namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
+namespace GameAssets.Scripts
 {
-    [CreateAssetMenu(fileName = nameof(UpgradeSetup),
-        menuName = Constants.CreateMenuCategory + "/" + nameof(UpgradeSetup), order = 0)]
+    [CreateAssetMenu]
     public class UpgradeSetup : ScriptableObject, IEventSender
     {
+        [Button]
         public virtual void Apply(IUpgradableAttributes attributes)
         {
             var type = attributes.GetType();
@@ -20,10 +21,10 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
             if (property == null)
                 throw new Exception($"Invalid property: {this.property}");
 
-            var currentValue = (float)property.GetValue(attributes);
-            property.SetValue(attributes, currentValue + (float)increasePerUpgrade / increaseDividend);
+            var currentValue = (int)property.GetValue(attributes);
+            property.SetValue(attributes, Mathf.Clamp(currentValue + increasePerUpgrade, 0, MaxLevel));
 
-            ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>().Raise(new UpgradedEvent(attributes, this));
+            ServiceLocator.GetService<EventBus>().Raise(new UpgradedEvent(attributes, this));
         }
 
 #if ODIN_INSPECTOR
@@ -46,7 +47,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
         [SerializeField]
         private string property;
 
-        private IEnumerable UpgradableAttributes => Type.GetType(className).GetProperties().Select(info => info.Name);
+        private IEnumerable UpgradableAttributes => string.IsNullOrEmpty(className)
+            ? Enumerable.Empty<string>()
+            : Type.GetType(className).GetProperties().Select(info => info.Name);
 
 
         [SerializeField] private string upgradeTextOnUI;
@@ -56,28 +59,45 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
         [Tooltip(
             "This is used as the dividend of increasePerUpgrade value. Property will be modified as Current Value += Increase Per Upgrade / Increase Dividend")]
         [SerializeField]
-        private int increaseDividend = 100;
+        private int maxLevel = 100;
+
+        [SerializeField] private CurvedIntVariable costCurve;
+
+        [SerializeField] private CurvedFloatVariable skillEffectCurve;
 
         public int IncreasePerUpgrade => increasePerUpgrade;
 
-        public int IncreaseDividend => increaseDividend;
-
-        [SerializeField] private int cost;
-
-        public int Cost => cost;
+        public int MaxLevel => maxLevel;
 
         public string Property => property;
 
         public string UpgradeTextOnUI => upgradeTextOnUI;
 
-        public float CurrentLevel(IUpgradableAttributes attributes)
+        public int CurrentLevel(IUpgradableAttributes attributes)
         {
             var type = attributes.GetType();
             var property = type.GetProperty(this.property);
             if (property == null)
                 throw new Exception($"Invalid property: {this.property}");
 
-            return (float)property.GetValue(attributes) * increaseDividend;
+            return (int)property.GetValue(attributes);
         }
+
+        public int CostOfLevel(int level)
+        {
+            return costCurve.Evaluate((float)level / maxLevel);
+        }
+
+        public int CostOfNextLevel(IUpgradableAttributes attributes) => CostOfLevel(CurrentLevel(attributes) + 1);
+
+        public float CurrentLevelEffect(IUpgradableAttributes attributes) =>
+            skillEffectCurve.Evaluate((float)CurrentLevel(attributes) / maxLevel);
+
+        public float Min => skillEffectCurve.Min;
+
+        public float Max => skillEffectCurve.Max;
+
+        public float NormalizedLevelEffect(IUpgradableAttributes attributes) =>
+            CurrentLevelEffect(attributes) - Min / Max - Min;
     }
 }
