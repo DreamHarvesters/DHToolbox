@@ -80,7 +80,7 @@ namespace GameAssets.Scripts
             if (property == null)
                 throw new Exception($"Invalid property: {this.property}");
 
-            return (float)property.GetValue(attributes) * maxLevel;
+            return Convert.ToSingle(property.GetValue(attributes)) * maxLevel;
         }
 
         public int CostOfLevel(int level)
