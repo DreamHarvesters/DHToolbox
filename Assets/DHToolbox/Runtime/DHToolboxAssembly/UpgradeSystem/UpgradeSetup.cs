@@ -21,8 +21,8 @@ namespace GameAssets.Scripts
             if (property == null)
                 throw new Exception($"Invalid property: {this.property}");
 
-            var currentValue = (int)property.GetValue(attributes);
-            property.SetValue(attributes, Mathf.Clamp(currentValue + increasePerUpgrade, 0, MaxLevel));
+            var currentValue = Convert.ToSingle(property.GetValue(attributes));
+            property.SetValue(attributes, Mathf.Clamp(currentValue + (float)increasePerUpgrade/MaxLevel, 0, 1));
 
             ServiceLocator.GetService<EventBus>().Raise(new UpgradedEvent(attributes, this));
         }
@@ -80,7 +80,7 @@ namespace GameAssets.Scripts
             if (property == null)
                 throw new Exception($"Invalid property: {this.property}");
 
-            return (float)property.GetValue(attributes) * maxLevel;
+            return Convert.ToSingle(property.GetValue(attributes)) * maxLevel;
         }
 
         public int CostOfLevel(int level)
