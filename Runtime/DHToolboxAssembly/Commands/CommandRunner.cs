@@ -8,7 +8,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Commands
 {
     public class CommandRunner : MonoBehaviour
     {
-        [SerializeReference, SubclassSelector] private ICommand[] commands;
+        [SerializeReference] private ICommand[] commands;
 
         private void ForeachCommand(Action<ICommand> foreachDlg) => Array.ForEach(commands, foreachDlg);
 
