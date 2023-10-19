@@ -14,6 +14,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.AppConfig
             ServiceLocator.ServiceLocator.AddService<Game.Game>(CreateGame());
             ServiceLocator.ServiceLocator.AddService<IPersistency>(CreatePersistency());
             ServiceLocator.ServiceLocator.AddService<EventBus.EventBus>(CreateEventBus());
+            ServiceLocator.ServiceLocator.AddService(this);
 
             CustomConfigureAfterAssembliesLoaded();
         }

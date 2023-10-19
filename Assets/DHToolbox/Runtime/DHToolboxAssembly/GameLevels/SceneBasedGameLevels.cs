@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using DHToolbox.Runtime.DHToolboxAssembly.Game;
 using DHToolbox.Runtime.DHToolboxAssembly.Game.Events;
@@ -14,9 +15,12 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.GameLevels
 
         public IndexProvider IndexProvider { get; set; }
 
-        public SceneBasedGameLevels(IndexProvider indexProvider)
+        public IProgress<float> LevelLoadingProgress { get; set; }
+
+        public SceneBasedGameLevels(IndexProvider indexProvider, IProgress<float> progress = null)
         {
             IndexProvider = indexProvider;
+            LevelLoadingProgress = progress;
 
             ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>().AsObservable<BeforeInitializeEvent>()
                 .Subscribe(initEvent => initEvent.Initializables.Add(this));
@@ -40,7 +44,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.GameLevels
                     return Observable.ReturnUnit();
                 })
                 .Switch()
-                .Select(_ => SceneManager.LoadSceneAsync(CurrentSceneIndex, LoadSceneMode.Additive).AsObservable())
+                .Select(_ =>
+                    SceneManager.LoadSceneAsync(CurrentSceneIndex, LoadSceneMode.Additive)
+                        .AsObservable(LevelLoadingProgress))
                 .Switch()
                 .Subscribe(_ => ServiceLocator.ServiceLocator.GetService<Game.Game>().CompleteLevelLoading());
 
