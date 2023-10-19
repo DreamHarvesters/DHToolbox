@@ -6,6 +6,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator
 {
     public static class ServiceLocator
     {
+        public static Game.Game Game => GetService<Game.Game>();
+        public static EventBus.EventBus EventBus => GetService<EventBus.EventBus>();
+
         private static Dictionary<Type, object> services = new Dictionary<Type, object>();
 
         public static void SetService<T>(object service) where T : class

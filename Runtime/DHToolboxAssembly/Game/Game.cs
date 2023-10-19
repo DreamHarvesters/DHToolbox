@@ -18,6 +18,12 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Game
         public IObservable<Unit> ObserveGameStart =>
             state.Where(gameState => gameState is GameState.InGame).AsUnitObservable();
 
+        public IObservable<Unit> ObserveSuccess =>
+            state.Where(gameState => gameState is GameState.Success).AsUnitObservable();
+
+        public IObservable<Unit> ObserveFail =>
+            state.Where(gameState => gameState is GameState.Fail).AsUnitObservable();
+
         public GameState CurrentState
         {
             get => state.Value;
