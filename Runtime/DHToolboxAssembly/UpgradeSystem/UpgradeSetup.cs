@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using DHToolbox.Runtime.DHToolboxAssembly;
 using DHToolbox.Runtime.DHToolboxAssembly.CurveBasedVariable;
 using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
 using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
@@ -10,7 +11,9 @@ using UnityEngine;
 
 namespace GameAssets.Scripts
 {
-    [CreateAssetMenu]
+    [CreateAssetMenu(fileName = nameof(UpgradeSetup),
+        menuName = Constants.CreateMenuCategory + "/" + nameof(UpgradeSetup),
+        order = 0)]
     public class UpgradeSetup : ScriptableObject, IEventSender
     {
         [Button]
@@ -22,7 +25,7 @@ namespace GameAssets.Scripts
                 throw new Exception($"Invalid property: {this.property}");
 
             var currentValue = Convert.ToSingle(property.GetValue(attributes));
-            property.SetValue(attributes, Mathf.Clamp(currentValue + (float)increasePerUpgrade/MaxLevel, 0, 1));
+            property.SetValue(attributes, Mathf.Clamp(currentValue + (float)increasePerUpgrade / MaxLevel, 0, 1));
 
             ServiceLocator.GetService<EventBus>().Raise(new UpgradedEvent(attributes, this));
         }
