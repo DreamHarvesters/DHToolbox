@@ -26,9 +26,16 @@ namespace DHToolbox.Runtime.Utils
         [SerializeField]
         private List<string> targetTags = new();
 
+#if ODIN_INSPECTOR
+        [ValueDropdown("TagList")]
+#endif
+        [SerializeField]
+        private List<string> excludedTags = new();
+
+
         public IReadOnlyList<string> TargetTags => targetTags;
 
-        public bool Contains(string tag) => targetTags.Contains(tag) || !EnableFilter;
+        public bool Contains(string tag) => (!excludedTags.Contains(tag) && targetTags.Contains(tag)) || !EnableFilter;
 
         public void Add(string tag) => targetTags.Add(tag);
         public void Remove(string tag) => targetTags.Remove(tag);
