@@ -26,7 +26,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.GameLevels
                 .Subscribe(initEvent => initEvent.Initializables.Add(this));
         }
 
-        public UniTask Initialize()
+        public virtual UniTask Initialize()
         {
             var eventBus = ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>();
 
