@@ -9,43 +9,49 @@ namespace GameFoundations.Tests.Editor
         private int CalculateCircularCurrent(int iteration, int start, int end) =>
             (iteration - start) % (end - start) + start;
 
-        private int CalculateCircularNext(int iteration, int start, int end) =>
-            (iteration - start + 1) % (end - start) + start;
+        private int CalculateCircularNext(int iteration, int start, int end)
+        {
+            int range = end - start;
+            int circularValue = start + ((iteration % range + range) % range);
+            return circularValue;
+        }
 
         [Test]
         public void CircularIndex_FromZero2Ten()
         {
-            int start = 0;
+            int start = 3;
             int end = 10;
 
-            var indexProvider = new CircularIndexProvider(start, end);
-            for (int i = start; i < 2 * end; i++)
+            int maxIndex = 6;
+
+            var indexProvider = new CircularIndexProvider(start, maxIndex);
+            for (int i = start; i < end; i++)
             {
-                Assert.IsTrue(CalculateCircularNext(i, start, end) == indexProvider.Next,
-                    $"Iteration: {i} - Expected Next: {CalculateCircularNext(i, start, end)} - Provided Next: {indexProvider.Next}");
-                Assert.IsTrue(CalculateCircularCurrent(i, start, end) == indexProvider.Current,
-                    $"Iteration: {i} - Provided Index: {indexProvider.Current}");
+                Debug.Log($"Iteration: {i} - Index: {indexProvider.Current}");
+                var expectedNext = CalculateCircularNext((i + 1), start, maxIndex);
+                Assert.IsTrue(expectedNext == indexProvider.Next,
+                    $"Iteration: {i} - Expected Next: {expectedNext} - Provided Next: {indexProvider.Next}");
+
+                var expectedCurrent = CalculateCircularCurrent(i, start, maxIndex);
+                Assert.IsTrue(expectedCurrent == indexProvider.Current,
+                    $"Iteration: {i} - ExpectedCurrent: {expectedCurrent} - Provided Current: {indexProvider.Current}");
                 indexProvider.MoveNext();
             }
         }
 
         [Test]
-        public void CircularIndex_RandomRange()
+        public void CircularIndex_From3ToFive()
         {
-            int start = Random.Range(0, 100);
-            int end = Random.Range(100, 200);
+            int min = 3;
+            int max = 5;
 
-            Debug.Log($"Testing from {start} to {end}");
+            var indexProvider = new CircularIndexProvider(min, max);
+            Assert.AreEqual(3, indexProvider.Current);
+            Assert.AreEqual(4, indexProvider.Next);
 
-            var indexProvider = new CircularIndexProvider(start, end);
-            for (int i = start; i < 2 * end; i++)
-            {
-                var expectedNext = CalculateCircularNext(i, start, end);
-                Assert.IsTrue(expectedNext == indexProvider.Next,
-                    $"Iteration: {i} - Expected Next: {CalculateCircularNext(i, start, end)} - Provided Next: {indexProvider.Next}");
-                Assert.IsTrue(CalculateCircularCurrent(i, start, end) == indexProvider.Current);
-                indexProvider.MoveNext();
-            }
+            indexProvider.MoveNext();
+            Assert.AreEqual(4, indexProvider.Current);
+            Assert.AreEqual(3, indexProvider.Next);
         }
 
         [Test]
@@ -53,13 +59,17 @@ namespace GameFoundations.Tests.Editor
         {
             int start = 0;
             int end = 30;
-            int next = 12;
 
-            var indexProvider = new CircularIndexProvider(start, end, next);
-            for (int i = next; i < 2 * end; i++)
+            int minIndex = 10;
+            int maxIndex = 15;
+            int current = 12;
+
+            var indexProvider = new CircularIndexProvider(minIndex, maxIndex, current);
+            for (int i = current; i < 2 * end; i++)
             {
-                Assert.IsTrue(CalculateCircularNext(i, start, end) == indexProvider.Next);
-                Assert.IsTrue(CalculateCircularCurrent(i, start, end) == indexProvider.Current,
+                var expectedNext = CalculateCircularNext(i + 1, minIndex, maxIndex);
+                Assert.IsTrue(expectedNext == indexProvider.Next);
+                Assert.IsTrue(CalculateCircularCurrent(i, minIndex, maxIndex) == indexProvider.Current,
                     $"Iteration: {i} - Provided Index: {indexProvider.Current}");
                 indexProvider.MoveNext();
             }

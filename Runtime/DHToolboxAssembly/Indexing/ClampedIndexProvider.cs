@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.Indexing
 {
+    /// <summary>
+    /// Min and max included
+    /// </summary>
     public class ClampedIndexProvider : IndexProvider
     {
         public ClampedIndexProvider(int min, int max)
