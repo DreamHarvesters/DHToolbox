@@ -5,10 +5,10 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Indexing
         protected int min;
         protected int max;
 
-        public int Current { get; protected set; }
+        public virtual int Current { get; protected set; }
 
         public abstract int Next { get; }
 
-        public void MoveNext() => Current = Next;
+        public virtual void MoveNext() => Current = Next;
     }
 }
