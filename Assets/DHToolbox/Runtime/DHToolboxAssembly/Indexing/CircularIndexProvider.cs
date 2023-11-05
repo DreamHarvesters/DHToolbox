@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.Indexing
 {
+    /// <summary>
+    /// Max exclusive
+    /// </summary>
     public class CircularIndexProvider : IndexProvider
     {
         public CircularIndexProvider(int min, int max)
@@ -18,9 +21,18 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Indexing
             this.min = min;
             this.max = max;
 
-            Current = (current - min) % Mathf.Max(1, max - min) + min;
+            int range = max - min;
+            Current = min + ((current - min) % range + range) % range;
         }
 
-        public override int Next => (Current - min + 1) % (max - min) + min;
+        public override int Next
+        {
+            get
+            {
+                int range = max - min;
+                int circularValue = min + ((Current + 1 - min) % range + range) % range;
+                return circularValue;
+            }
+        }
     }
 }
