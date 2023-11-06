@@ -13,21 +13,24 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.GameLevels
         private int firstLevelIndex;
 
         public CircularIndexAfterCompletingAllLevelsProvider(int firstLevelIndex, int levelCount,
-            int circulateFromLevelIndex, int currentLevel)
+            int circulateFromLevelIndex, int currentLevel, bool isLevelIndexZeroBased)
         {
             lastLevelIndex = firstLevelIndex + levelCount - 1;
             this.circulateFromLevelIndex = circulateFromLevelIndex;
             this.levelCount = levelCount;
             this.firstLevelIndex = firstLevelIndex;
 
-            if (currentLevel > lastLevelIndex)
-                concreteIndexProvider = CreateCircularIndexProvider(currentLevel);
+            var currentLevelSceneIndex = currentLevel;
+            if (!isLevelIndexZeroBased)
+                currentLevelSceneIndex = (currentLevel - 1) + this.firstLevelIndex;
+
+            if (currentLevelSceneIndex > lastLevelIndex)
+                concreteIndexProvider = CreateCircularIndexProvider(currentLevelSceneIndex);
             else
             {
-                concreteIndexProvider = new ClampedIndexProvider(firstLevelIndex, lastLevelIndex);
+                concreteIndexProvider =
+                    new ClampedIndexProvider(firstLevelIndex, lastLevelIndex, currentLevelSceneIndex);
             }
-
-            Current = concreteIndexProvider.Current;
         }
 
         CircularIndexProvider CreateCircularIndexProvider(int level) =>
