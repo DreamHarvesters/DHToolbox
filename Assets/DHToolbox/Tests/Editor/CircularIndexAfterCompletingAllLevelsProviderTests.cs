@@ -2,6 +2,7 @@ using DHToolbox.Runtime.DHToolboxAssembly.GameLevels;
 using DHToolbox.Runtime.DHToolboxAssembly.Indexing;
 using NUnit.Framework;
 using UniRx;
+using UnityEngine;
 
 namespace GameFoundations.Tests.Editor
 {
@@ -71,6 +72,7 @@ namespace GameFoundations.Tests.Editor
                     testCircularIndexProvider.MoveNext();
                 }
 
+                Debug.Log($"Index: {provider.Current}");
                 provider.MoveNext();
             }
         }
