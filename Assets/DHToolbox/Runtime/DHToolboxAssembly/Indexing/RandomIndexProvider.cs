@@ -7,10 +7,12 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Indexing
     /// </summary>
     public class RandomIndexProvider : IndexProvider
     {
-        public RandomIndexProvider(int max, int min)
+        public RandomIndexProvider(int min, int max)
         {
             this.max = max;
             this.min = min;
+
+            Current = Next;
         }
 
         public override int Next => Random.Range(min, max);
