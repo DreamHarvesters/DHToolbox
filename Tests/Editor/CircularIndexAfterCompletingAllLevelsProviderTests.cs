@@ -15,7 +15,7 @@ namespace GameFoundations.Tests.Editor
             int firstLevelIndex = 1;
             int levelCount = 5;
             int circulateFromLevelIndex = 3;
-            var provider = new CircularIndexAfterCompletingAllLevelsProvider(
+            var provider = new CirculateAfterCompletingRangeProvider(
                 firstLevelIndex, levelCount, circulateFromLevelIndex, firstLevelIndex, false);
 
             // Act and Assert
@@ -34,7 +34,7 @@ namespace GameFoundations.Tests.Editor
             int levelCount = 5;
             int circulateFromLevelIndex = 3;
             int currentLevel = 6; // Beyond lastLevelIndex
-            var provider = new CircularIndexAfterCompletingAllLevelsProvider(
+            var provider = new CirculateAfterCompletingRangeProvider(
                 firstLevelIndex, levelCount, circulateFromLevelIndex, currentLevel, false);
 
             var testProvider =
@@ -56,7 +56,7 @@ namespace GameFoundations.Tests.Editor
             int levelCount = 5;
             int circulateFromLevelIndex = 3;
             int currentLevel = 1; // Beyond lastLevelIndex
-            var provider = new CircularIndexAfterCompletingAllLevelsProvider(
+            var provider = new CirculateAfterCompletingRangeProvider(
                 firstLevelIndex, levelCount, circulateFromLevelIndex, currentLevel, false);
 
             var testCircularIndexProvider =

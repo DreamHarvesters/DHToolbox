@@ -17,13 +17,13 @@ namespace DHToolbox.Runtime.PlayerStorageView
         {
             var eventBus = ServiceLocator.GetService<EventBus>();
 
-            eventBus.AsObservable<ResourceAddedToTreasureEvent>().Subscribe(addedEvent =>
+            eventBus.AsObservable<InventoryItemAddedEvent>().Subscribe(addedEvent =>
             {
                 var setup = ResourceSetupRepository.Instance.GetById(addedEvent.AddedResource.Id);
                 CreateItem(setup, addedEvent.AddedResource.ObserveAmount);
             }).AddTo(gameObject);
 
-            var treasure = ServiceLocator.GetService<PlayerTreasure>();
+            var treasure = ServiceLocator.GetService<Inventory>();
             treasure.ForeachItem(resource =>
             {
                 var setup = ResourceSetupRepository.Instance.GetById(resource.Id);

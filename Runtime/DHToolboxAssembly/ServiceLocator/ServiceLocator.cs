@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator
 {
     public static class ServiceLocator
     {
-        public static Game.Game Game => GetService<Game.Game>();
-        public static EventBus.EventBus EventBus => GetService<EventBus.EventBus>();
-
         private static Dictionary<Type, object> services = new Dictionary<Type, object>();
 
         public static void SetService<T>(object service) where T : class
@@ -43,24 +39,6 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator
                 return instance as T;
 
             throw new KeyNotFoundException($"Service type not found: {typeof(T).Name}");
-        }
-
-        private static AppConfig.AppConfig config;
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]
-        static void ConfigureAfterAssembliesLoaded()
-        {
-            config = Resources.Load<AppConfig.AppConfig>(nameof(AppConfig.AppConfig));
-            if (!config)
-                config = ScriptableObject.CreateInstance<AppConfig.AppConfig>();
-
-            config.ConfigureAfterAssembliesLoaded();
-        }
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static void ConfigureAfterSceneLoaded()
-        {
-            config.ConfigureAfterSceneLoaded();
         }
     }
 }
