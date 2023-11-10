@@ -2,37 +2,37 @@ using DHToolbox.Runtime.DHToolboxAssembly.Indexing;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.GameLevels
 {
-    public class RandomIndexAfterCompletingAllLevelsProvider : IndexProvider
+    public class RandomizeAfterCompletingRangeProvider : IndexProvider
     {
         private IndexProvider concreteIndexProvider;
         private int lastLevelIndex;
         private int minRandom;
-        private int levelCount;
-        private int firstLevelIndex;
+        private int count;
+        private int rangeStart;
 
-        public RandomIndexAfterCompletingAllLevelsProvider(int firstLevelIndex, int levelCount,
-            int minRandom, int currentLevel, bool isLevelIndexZeroBased)
+        public RandomizeAfterCompletingRangeProvider(int rangeStart, int count,
+            int minRandom, int current, bool isCurrentValueZeroBased)
         {
-            lastLevelIndex = firstLevelIndex + levelCount - 1;
+            lastLevelIndex = rangeStart + count - 1;
             this.minRandom = minRandom;
-            this.levelCount = levelCount;
-            this.firstLevelIndex = firstLevelIndex;
+            this.count = count;
+            this.rangeStart = rangeStart;
 
-            var currentLevelSceneIndex = currentLevel;
-            if (!isLevelIndexZeroBased)
-                currentLevelSceneIndex = (currentLevel - 1) + this.firstLevelIndex;
+            var currentLevelSceneIndex = current;
+            if (!isCurrentValueZeroBased)
+                currentLevelSceneIndex = (current - 1) + this.rangeStart;
 
             if (currentLevelSceneIndex > lastLevelIndex)
                 concreteIndexProvider = CreateRandomIndexProvider();
             else
             {
                 concreteIndexProvider =
-                    new ClampedIndexProvider(firstLevelIndex, lastLevelIndex, currentLevelSceneIndex);
+                    new ClampedIndexProvider(rangeStart, lastLevelIndex, currentLevelSceneIndex);
             }
         }
 
         RandomIndexProvider CreateRandomIndexProvider() =>
-            new(minRandom, firstLevelIndex + levelCount);
+            new(minRandom, rangeStart + count);
 
         public override int Current => concreteIndexProvider.Current;
 

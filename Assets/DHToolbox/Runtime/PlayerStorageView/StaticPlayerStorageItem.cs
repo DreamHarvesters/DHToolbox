@@ -11,7 +11,7 @@ namespace DHToolbox.Runtime.PlayerStorageView
 
         private void Awake()
         {
-            var playerTreasure = ServiceLocator.GetService<PlayerTreasure>();
+            var playerTreasure = ServiceLocator.GetService<Inventory>();
 
             var setup = ResourceSetupRepository.Instance.GetById(ResourceId);
             Setup(setup, playerTreasure.GetOrCreate(ResourceId).ObserveAmount);
