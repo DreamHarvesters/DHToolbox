@@ -2,11 +2,10 @@
     "name": "com.DreamHarvesters.DHToolbox",
     "rootNamespace": "",
     "references": [
-        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23",
-        "GUID:49b49c76ee64f6b41bf28ef951cb0e50",
-        "GUID:174bc9f391f1b7f4292b3824c5019a21",
-        "GUID:4fe59c0e108374cc0881204a6efcfa71"
+        "UniRx",
+        "UniTask",
+        "LeanPool",
+        "EasySave3"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
