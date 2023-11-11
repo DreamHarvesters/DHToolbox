@@ -33,7 +33,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
                 .Select(_ =>
                 {
                     var spawnTransform = spawnTransforms.GetRandom();
-                    var newPrefab = Instantiate(prefabs[instantiatedCount],
+                    var newPrefab = WaveManager.Instance.Factory.Instantiate(prefabs[instantiatedCount],
                         spawnTransform.RandomPosition,
                         Quaternion.identity);
 
