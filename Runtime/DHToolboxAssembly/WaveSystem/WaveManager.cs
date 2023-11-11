@@ -36,6 +36,8 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
 
         public bool WavesCompleted => currentWaveIndex.Value == waves.Length - 1;
 
+        public IObjectFactory Factory { get; set; } = new InstantiaterFactory();
+
 #if ODIN_INSPECTOR
         [Button]
 #endif
