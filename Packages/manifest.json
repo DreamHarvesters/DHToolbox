@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "2.3.3",
-    "com.mackysoft.serializereference-extensions": "1.1.7",
     "com.neuecc.unirx": "7.1.0",
     "com.unity-atoms.unity-atoms-base-atoms": "4.4.5",
     "com.unity-atoms.unity-atoms-core": "4.4.5",
