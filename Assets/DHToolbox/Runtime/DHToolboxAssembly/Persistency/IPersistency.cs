@@ -12,9 +12,9 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Persistency
 
         void DeleteAll();
 
-        void GetInt(string key, int defaultValue);
-        void GetFloat(string key, float defaultValue);
-        void GetString(string key, string defaultValue);
+        int GetInt(string key, int defaultValue);
+        float GetFloat(string key, float defaultValue);
+        string GetString(string key, string defaultValue);
 
         bool HasKey(string key);
 

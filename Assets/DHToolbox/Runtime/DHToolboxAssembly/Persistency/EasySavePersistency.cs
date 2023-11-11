@@ -1,3 +1,5 @@
+using System;
+
 namespace DHToolbox.Runtime.DHToolboxAssembly.Persistency
 {
     public class EasySavePersistency : IPersistency
@@ -41,25 +43,29 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Persistency
 #endif
         }
 
-        public void GetInt(string key, int defaultValue)
+        public int GetInt(string key, int defaultValue)
         {
 #if EASY_SAVE
-            ES3.Load(key, defaultValue);
+            return ES3.Load(key, defaultValue);
 #endif
+            throw new Exception("Install Easy Save and add EASY_SAVE precompiler definition");
         }
 
-        public void GetFloat(string key, float defaultValue)
+        public float GetFloat(string key, float defaultValue)
         {
 #if EASY_SAVE
-            ES3.Load(key, defaultValue);
+            return ES3.Load(key, defaultValue);
 #endif
+
+            throw new Exception("Install Easy Save and add EASY_SAVE precompiler definition");
         }
 
-        public void GetString(string key, string defaultValue)
+        public string GetString(string key, string defaultValue)
         {
 #if EASY_SAVE
-            ES3.Load(key, defaultValue);
+            return ES3.LoadString(key, defaultValue);
 #endif
+            throw new Exception("Install Easy Save and add EASY_SAVE precompiler definition");
         }
 
         public bool HasKey(string key)
@@ -67,6 +73,8 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Persistency
 #if EASY_SAVE
             return ES3.KeyExists(key);
 #endif
+
+            throw new Exception("Install Easy Save and add EASY_SAVE precompiler definition");
         }
 
         public void Save()
