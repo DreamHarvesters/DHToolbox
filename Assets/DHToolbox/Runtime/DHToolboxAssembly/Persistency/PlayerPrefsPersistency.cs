@@ -22,10 +22,10 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.Persistency
         public virtual void DeleteKey(string key) => PlayerPrefs.DeleteKey(key);
 
         public virtual void DeleteAll() => PlayerPrefs.DeleteAll();
-
-        public virtual void GetInt(string key, int defaultValue) => PlayerPrefs.GetInt(key, defaultValue);
-        public virtual void GetFloat(string key, float defaultValue) => PlayerPrefs.GetFloat(key, defaultValue);
-        public virtual void GetString(string key, string defaultValue) => PlayerPrefs.GetString(key, defaultValue);
+        
+        public virtual int GetInt(string key, int defaultValue) => PlayerPrefs.GetInt(key, defaultValue);
+        public virtual float GetFloat(string key, float defaultValue) => PlayerPrefs.GetFloat(key, defaultValue);
+        public virtual string GetString(string key, string defaultValue) => PlayerPrefs.GetString(key, defaultValue);
 
         public virtual bool HasKey(string key) => PlayerPrefs.HasKey(key);
 
