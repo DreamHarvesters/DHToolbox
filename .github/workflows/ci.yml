@@ -1,17 +1,19 @@
-name: Submodule CI
+name: Submodule V1
 on:
   push:
     branches:
-    - main
+    - v1
+
 jobs:
-  split-submodule:
+  create-submodule:
     name: split submodule branch
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: split submodule branch
+    - name: Create submodule branch
       run: |
+        git checkout v1
         git subtree split -P "Assets/DHToolbox" -b submodule
         git push -u origin submodule
