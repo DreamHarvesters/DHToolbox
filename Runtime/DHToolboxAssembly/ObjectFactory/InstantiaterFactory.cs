@@ -31,7 +31,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.ObjectFactory
 
         public void Destroy(GameObject gameObject, float delay)
         {
-            Destroy(gameObject, delay);
+            GameObject.Destroy(gameObject, delay);
         }
     }
 }
