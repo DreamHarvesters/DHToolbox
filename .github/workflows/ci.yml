@@ -16,6 +16,11 @@ jobs:
         git subtree split -P "Assets/DHToolbox" -b submodule_v2
         git push -u origin submodule_v2
 
+on:
+  push:
+    branches:
+    - v1
+jobs:
   create-submodule:
     name: split submodule branch
     runs-on: ubuntu-latest
