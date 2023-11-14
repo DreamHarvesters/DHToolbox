@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace TemplateAssets.Scripts.Zoning
+namespace DHToolbox.Runtime.DHToolboxAssembly.Zoning
 {
     public class PropActivator : MonoBehaviour
     {

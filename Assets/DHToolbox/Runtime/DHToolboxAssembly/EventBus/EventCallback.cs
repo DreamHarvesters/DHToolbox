@@ -1,16 +1,14 @@
 using System;
 using System.Collections;
 using System.Linq;
-using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
-using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
-#if ODIN_INSPECTOR
-using Sirenix.OdinInspector;
-#endif
 using UniRx;
 using UnityEngine;
 using UnityEngine.Events;
+#if ODIN_INSPECTOR
+using Sirenix.OdinInspector;
+#endif
 
-namespace GameAssets.Scripts.Utils
+namespace DHToolbox.Runtime.DHToolboxAssembly.EventBus
 {
     public class EventCallback : MonoBehaviour
     {
@@ -29,7 +27,7 @@ namespace GameAssets.Scripts.Utils
 
         private void Awake()
         {
-            ServiceLocator.GetService<EventBus>().AsObservable(Type.GetType(eventToListen))
+            ServiceLocator.ServiceLocator.GetService<EventBus>().AsObservable(Type.GetType(eventToListen))
                 .Subscribe(_ => OnRaised?.Invoke()).AddTo(gameObject);
         }
     }

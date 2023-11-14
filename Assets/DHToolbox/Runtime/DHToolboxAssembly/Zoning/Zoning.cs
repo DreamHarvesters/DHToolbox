@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DHToolbox.Runtime.DHToolboxAssembly;
-#if ODIN_INSPECTOR
+﻿#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
 #if UNITY_EDITOR
 using Sirenix.Utilities.Editor;
 #endif
 #endif
-using UniRx;
 #if UNITY_EDITOR
-using UnityEditor;
 #endif
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using UniRx;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace TemplateAssets.Scripts.Zoning
+namespace DHToolbox.Runtime.DHToolboxAssembly.Zoning
 {
     [CreateAssetMenu(
         fileName = nameof(Zoning),
