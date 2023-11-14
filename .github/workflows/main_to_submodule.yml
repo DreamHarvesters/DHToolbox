@@ -1,4 +1,4 @@
-name: Submodule CI
+name: Submodule V2
 on:
   push:
     branches:
