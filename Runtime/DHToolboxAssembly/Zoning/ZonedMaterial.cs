@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-#if ODIN_INSPECTOR
 using Sirenix.OdinInspector;
-#endif
 using UnityEngine;
 using UnityEngine.Rendering;
+#if ODIN_INSPECTOR
+#endif
 
-namespace TemplateAssets.Scripts.Zoning
+namespace DHToolbox.Runtime.DHToolboxAssembly.Zoning
 {
     [Serializable]
     public class ZonedMaterial

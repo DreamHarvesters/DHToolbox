@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DHToolbox.Runtime.DHToolboxAssembly.WaveSystem
+namespace DHToolbox.Runtime.DHToolboxAssembly.ObjectFactory
 {
     public class InstantiaterFactory : IObjectFactory
     {

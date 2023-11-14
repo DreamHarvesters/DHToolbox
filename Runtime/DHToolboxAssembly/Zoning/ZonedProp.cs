@@ -1,7 +1,7 @@
 using UniRx;
 using UnityEngine;
 
-namespace TemplateAssets.Scripts.Zoning
+namespace DHToolbox.Runtime.DHToolboxAssembly.Zoning
 {
     public class ZonedProp : MonoBehaviour
     {

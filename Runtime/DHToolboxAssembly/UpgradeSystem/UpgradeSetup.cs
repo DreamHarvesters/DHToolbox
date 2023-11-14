@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using DHToolbox.Runtime.DHToolboxAssembly;
 using DHToolbox.Runtime.DHToolboxAssembly.CurveBasedVariable;
 using DHToolbox.Runtime.DHToolboxAssembly.EventBus;
-using DHToolbox.Runtime.DHToolboxAssembly.ServiceLocator;
-using DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace GameAssets.Scripts
+namespace DHToolbox.Runtime.DHToolboxAssembly.UpgradeSystem
 {
     [CreateAssetMenu(fileName = nameof(UpgradeSetup),
         menuName = Constants.CreateMenuCategory + "/" + nameof(UpgradeSetup),
@@ -27,7 +24,7 @@ namespace GameAssets.Scripts
             var currentValue = Convert.ToSingle(property.GetValue(attributes));
             property.SetValue(attributes, Mathf.Clamp(currentValue + (float)increasePerUpgrade / MaxLevel, 0, 1));
 
-            ServiceLocator.GetService<EventBus>().Raise(new UpgradedEvent(attributes, this));
+            ServiceLocator.ServiceLocator.GetService<EventBus.EventBus>().Raise(new UpgradedEvent(attributes, this));
         }
 
 #if ODIN_INSPECTOR

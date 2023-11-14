@@ -1,4 +1,5 @@
 using System;
+using DHToolbox.Runtime.DHToolboxAssembly.ObjectFactory;
 using DHToolbox.Runtime.DHToolboxAssembly.Singleton;
 using UniRx;
 using UnityEngine;
