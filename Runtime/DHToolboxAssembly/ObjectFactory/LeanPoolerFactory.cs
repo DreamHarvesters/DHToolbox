@@ -1,4 +1,7 @@
 using System;
+#if LEAN_POOL
+using Lean.Pool;
+#endif
 using UnityEngine;
 
 namespace DHToolbox.Runtime.DHToolboxAssembly.ObjectFactory
@@ -49,6 +52,7 @@ namespace DHToolbox.Runtime.DHToolboxAssembly.ObjectFactory
         {
 #if LEAN_POOL
             LeanPool.Despawn(gameObject, delay);
+            return;
 #endif
             throw new Exception("Install LeanPool and add LEAN_POOL precompiler definition");
         }
